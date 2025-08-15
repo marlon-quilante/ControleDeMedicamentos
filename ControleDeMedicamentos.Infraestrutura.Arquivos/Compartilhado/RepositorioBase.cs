@@ -1,0 +1,40 @@
+﻿using ControleDeMedicamentos.Dominio.Compartilhado;
+
+namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
+{
+    public abstract class RepositorioBase<T> where T : EntidadeBase<T>
+    {
+        public ContextoDados contextoDados;
+        public List<T> listaRegistros = new List<T>();
+
+        public RepositorioBase(ContextoDados contextoDados)
+        {
+            this.contextoDados = contextoDados;
+            listaRegistros = ObterRegistros();
+        }
+
+        public void Cadastrar(T novoRegistro)
+        {
+            if (novoRegistro != null)
+            {
+                listaRegistros.Add(novoRegistro);
+                novoRegistro.Id = Guid.NewGuid();
+                contextoDados.Salvar();
+            }
+        }
+
+        public abstract void Editar(Guid idParaAtualizar, T registroAtualizado);
+
+        public abstract List<T> ObterRegistros();
+
+        public T ObterRegistroPorID(Guid id)
+        {
+            foreach (T registro in listaRegistros)
+            {
+                if (registro.Id == id)
+                    return registro;
+            }
+            return null;
+        }
+    }
+}

@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ControleDeMedicamentos.Dominio\ControleDeMedicamentos.Dominio.csproj" />
+    <ProjectReference Include="..\ControleDeMedicamentos.Infraestrutura.Arquivos\ControleDeMedicamentos.Infraestrutura.Arquivos.csproj" />
+  </ItemGroup>
+
 </Project>
