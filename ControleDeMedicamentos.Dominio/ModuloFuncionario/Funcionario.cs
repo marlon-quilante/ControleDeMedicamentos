@@ -8,9 +8,8 @@ namespace ControleDeMedicamentos.Dominio.ModuloFuncionario
         public string Telefone { get; set; }
         public string CPF { get; set; }
 
-        public Funcionario(Guid id, string nome, string telefone, string cpf) : base(id)
+        public Funcionario(string nome, string telefone, string cpf)
         {
-            Id = id;
             Nome = nome;
             Telefone = telefone;
             CPF = cpf;

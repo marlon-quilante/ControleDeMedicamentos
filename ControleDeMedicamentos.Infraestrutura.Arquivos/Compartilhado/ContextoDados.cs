@@ -47,7 +47,7 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
 
             JsonSerializerOptions opcoesJson = OpcoesJson();
 
-            ContextoDados contextoArmazenado = JsonSerializer.Deserialize<ContextoDados>(caminho, opcoesJson);
+            ContextoDados contextoArmazenado = JsonSerializer.Deserialize<ContextoDados>(conteudoJson, opcoesJson);
 
             if (contextoArmazenado == null) return;
 
