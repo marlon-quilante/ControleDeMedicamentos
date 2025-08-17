@@ -48,9 +48,13 @@ namespace ControleDeMedicamentos.WebApp.Models
 
     public class CadastrarFuncionarioViewModel 
     {
-        [Range(2, 100)]
+        [StringLength(100, MinimumLength=3, ErrorMessage = "O nome do funcionário deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
+
+        [RegularExpression(@"^\(\d{2}\)\s{1}\d{5}\-\d{4}$", ErrorMessage = "O telefone deve estar no formato (99) 99999-9999")]
         public string Telefone { get; set; }
+
+        [RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "O CPF deve estar no formato 999.999.999-99")]
         public string CPF { get; set; }
 
         public CadastrarFuncionarioViewModel() { }
@@ -67,9 +71,13 @@ namespace ControleDeMedicamentos.WebApp.Models
     {
         public Guid Id { get; set; }
 
-        [Range(2, 100)]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do funcionário deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
+
+        [RegularExpression(@"^\(\d{2}\)\s{1}\d{5}\-\d{4}$", ErrorMessage = "O telefone deve estar no formato (99) 99999-9999")]
         public string Telefone { get; set; }
+
+        [RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "O CPF deve estar no formato 999.999.999-99")]
         public string CPF { get; set; }
 
         public EditarFuncionarioViewModel() { }

@@ -24,5 +24,13 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario
 
             contextoDados.Salvar();
         }
+
+        public override bool RegistroDuplicado(Funcionario funcionario)
+        {
+            foreach (Funcionario f in listaRegistros)
+                if (f.CPF == funcionario.CPF && f.Id != funcionario.Id)
+                    return true;
+            return false;
+        }
     }
 }

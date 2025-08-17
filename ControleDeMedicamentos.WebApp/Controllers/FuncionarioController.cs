@@ -35,7 +35,13 @@ namespace ControleDeMedicamentos.WebApp.Controllers
         [HttpPost]
         public IActionResult Cadastrar(CadastrarFuncionarioViewModel cadastrarVM)
         {
+            if (!ModelState.IsValid)
+                return View(cadastrarVM);
+
             Funcionario novoFuncionario = new Funcionario(cadastrarVM.Nome, cadastrarVM.Telefone, cadastrarVM.CPF);
+
+            if (repositorioFuncionario.RegistroDuplicado(novoFuncionario))
+                return View(cadastrarVM);
 
             repositorioFuncionario.Cadastrar(novoFuncionario);
 
@@ -55,7 +61,14 @@ namespace ControleDeMedicamentos.WebApp.Controllers
         [HttpPost]
         public IActionResult Editar(EditarFuncionarioViewModel editarVM)
         {
+            if (!ModelState.IsValid)
+                return View(editarVM);
+
             Funcionario funcionarioAtualizado = new Funcionario(editarVM.Nome, editarVM.Telefone, editarVM.CPF);
+            funcionarioAtualizado.Id = editarVM.Id;
+
+            if (repositorioFuncionario.RegistroDuplicado(funcionarioAtualizado))
+                return View(editarVM);
 
             repositorioFuncionario.Editar(editarVM.Id, funcionarioAtualizado);
 

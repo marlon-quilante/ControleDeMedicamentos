@@ -44,5 +44,7 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
             }
             return null;
         }
+
+        public abstract bool RegistroDuplicado(T registro);
     }
 }
