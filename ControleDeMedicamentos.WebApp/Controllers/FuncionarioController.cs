@@ -1,5 +1,4 @@
 ﻿using ControleDeMedicamentos.Dominio.ModuloFuncionario;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +7,12 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 {
     public class FuncionarioController : Controller
     {
-        private readonly RepositorioFuncionario repositorioFuncionario;
-        private ContextoDados contextoDados;
+        private readonly RepositorioFuncionarioEmArquivo repositorioFuncionario;
 
-        public FuncionarioController()
+        // Inversão de controle
+        public FuncionarioController(RepositorioFuncionarioEmArquivo repositorioFuncionario)
         {
-            contextoDados = new ContextoDados(carregarDados: true);
-            repositorioFuncionario = new RepositorioFuncionario(contextoDados);
+            this.repositorioFuncionario = repositorioFuncionario;
         }
 
         [HttpGet]
@@ -40,6 +38,44 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             Funcionario novoFuncionario = new Funcionario(cadastrarVM.Nome, cadastrarVM.Telefone, cadastrarVM.CPF);
 
             repositorioFuncionario.Cadastrar(novoFuncionario);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Editar(Guid id)
+        {
+            Funcionario funcionario = repositorioFuncionario.ObterRegistroPorID(id);
+
+            EditarFuncionarioViewModel editarVM = new EditarFuncionarioViewModel(funcionario.Id, funcionario.Nome, funcionario.Telefone, funcionario.CPF);
+
+            return View(editarVM);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(EditarFuncionarioViewModel editarVM)
+        {
+            Funcionario funcionarioAtualizado = new Funcionario(editarVM.Nome, editarVM.Telefone, editarVM.CPF);
+
+            repositorioFuncionario.Editar(editarVM.Id, funcionarioAtualizado);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Excluir(Guid id)
+        {
+            Funcionario funcionario = repositorioFuncionario.ObterRegistroPorID(id);
+
+            ExcluirFuncionarioViewModel excluirVM = new ExcluirFuncionarioViewModel(funcionario.Id, funcionario.Nome);
+
+            return View(excluirVM);
+        }
+
+        [HttpPost]
+        public IActionResult ExcluirConfirmado(Guid id)
+        {
+            repositorioFuncionario.Excluir(id);
 
             return RedirectToAction(nameof(Index));
         }

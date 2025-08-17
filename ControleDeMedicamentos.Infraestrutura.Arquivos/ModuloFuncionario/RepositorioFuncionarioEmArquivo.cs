@@ -3,9 +3,9 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario
 {
-    public class RepositorioFuncionario : RepositorioBase<Funcionario>
+    public class RepositorioFuncionarioEmArquivo : RepositorioBase<Funcionario>
     {
-        public RepositorioFuncionario(ContextoDados contextoDados) : base(contextoDados)
+        public RepositorioFuncionarioEmArquivo(ContextoDados contextoDados) : base(contextoDados)
         {
         }
 
@@ -21,6 +21,8 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario
             funcionario.Nome = funcionarioAtualizado.Nome;
             funcionario.Telefone = funcionarioAtualizado.Telefone;
             funcionario.CPF = funcionarioAtualizado.CPF;
+
+            contextoDados.Salvar();
         }
     }
 }

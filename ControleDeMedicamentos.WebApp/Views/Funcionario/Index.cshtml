@@ -6,9 +6,9 @@
 
 <div class="d-flex container-fluid mb-3" style="background-color: #32376F">
     <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
-    <a class="btn btn-close-white ms-auto mt-2 mb-2" href="/Funcionario/Cadastrar">
-        <i class="bi bi-plus"></i>
+    <a class="btn btn-outline-light ms-auto mt-2 mb-2" href="/Funcionario/Cadastrar">
         Cadastrar
+        <i class="bi bi-plus"></i>
     </a>
 </div>
 
@@ -16,20 +16,31 @@
     <table class="table table-dark table-striped">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nome</th>
-                <th scope="col">CPF</th>
-                <th scope="col">Telefone</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             @foreach (DetalhesFuncionarioViewModel f in Model.Funcionarios)
             {
                 <tr>
-                    <td scope="row">@f.Id</td>
-                    <td scope="row">@f.Nome</td>
-                    <td scope="row">@f.CPF</td>
-                    <td scope="row">@f.Telefone</td>
+                    <td>@f.Id</td>
+                    <td>@f.Nome</td>
+                    <td>@f.CPF</td>
+                    <td>@f.Telefone</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Editar" asp-route-id="@f.Id">
+                                <i class="bi bi-pencil" style="color: forestgreen"></i>
+                            </a>
+                            <a asp-action="Excluir" asp-route-id="@f.Id">
+                                <i class="bi bi-trash" style="color: #f03"></i>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>

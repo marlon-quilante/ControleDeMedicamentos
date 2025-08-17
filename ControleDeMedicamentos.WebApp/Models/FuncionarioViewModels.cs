@@ -66,10 +66,13 @@ namespace ControleDeMedicamentos.WebApp.Models
     public class EditarFuncionarioViewModel 
     {
         public Guid Id { get; set; }
+
         [Range(2, 100)]
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string CPF { get; set; }
+
+        public EditarFuncionarioViewModel() { }
 
         public EditarFuncionarioViewModel(Guid id, string nome, string telefone, string cpf)
         {
@@ -80,5 +83,17 @@ namespace ControleDeMedicamentos.WebApp.Models
         }
     }
 
-    public class ExcluirFuncionarioViewModel { }
+    public class ExcluirFuncionarioViewModel 
+    {
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+
+        public ExcluirFuncionarioViewModel() { }
+
+        public ExcluirFuncionarioViewModel(Guid id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
+    }
 }

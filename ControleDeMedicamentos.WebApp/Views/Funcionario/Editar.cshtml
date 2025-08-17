@@ -1,7 +1,7 @@
-﻿@model CadastrarFuncionarioViewModel
+﻿@model EditarFuncionarioViewModel
 
 @{
-    ViewBag.Titulo = "Cadastro de Funcionário";
+    ViewBag.Titulo = "Edição de Funcionário";
 }
 
 <div class="d-flex container-fluid mb-3" style="background-color: #32376F">
@@ -9,7 +9,7 @@
 </div>
 
 <div class="col-lg-5 col-xl-4 needs-validation">
-    <form class="container-fluid mt-3" asp-action="Cadastrar" method="post">
+    <form class="container-fluid mt-3" asp-action="Editar" method="post">
         <div class="mb-3">
             <label class="form-label" asp-for="Nome">Nome:</label>
             <input class="form-control" asp-for="Nome" id="Nome" type="text" placeholder="Nome do funcionário" />

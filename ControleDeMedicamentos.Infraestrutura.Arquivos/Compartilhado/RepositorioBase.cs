@@ -1,4 +1,5 @@
 ﻿using ControleDeMedicamentos.Dominio.Compartilhado;
+using ControleDeMedicamentos.Dominio.ModuloFuncionario;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
 {
@@ -24,6 +25,13 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
         }
 
         public abstract void Editar(Guid idParaAtualizar, T registroAtualizado);
+
+        public void Excluir(Guid id)
+        {
+            T registro = ObterRegistroPorID(id);
+            listaRegistros.Remove(registro);
+            contextoDados.Salvar();
+        }
 
         public abstract List<T> ObterRegistros();
 
