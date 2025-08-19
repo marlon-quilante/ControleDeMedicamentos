@@ -1,7 +1,7 @@
-﻿@model VisualizarFuncionariosViewModel
+﻿@model VisualizarPacientesViewModel
 
 @{
-    ViewBag.Titulo = "Funcionários";
+    ViewBag.Titulo = "Pacientes";
 }
 
 <div class="d-flex container-fluid mb-3" style="background-color: #32376F">
@@ -20,23 +20,25 @@
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
+                <th>Nº Cartão SUS</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (DetalhesFuncionarioViewModel f in Model.Funcionarios)
+            @foreach (DetalhesPacienteViewModel p in Model.Pacientes)
             {
                 <tr>
-                    <td>@f.Id</td>
-                    <td>@f.Nome</td>
-                    <td>@f.CPF</td>
-                    <td>@f.Telefone</td>
+                    <td>@p.Id</td>
+                    <td>@p.Nome</td>
+                    <td>@p.CPF</td>
+                    <td>@p.Telefone</td>
+                    <td>@p.NumCartaoSUS</td>
                     <td>
                         <div class="d-flex gap-2">
-                            <a asp-action="Editar" asp-route-id="@f.Id">
+                            <a asp-action="Editar" asp-route-id="@p.Id">
                                 <i class="bi bi-pencil" style="color: forestgreen"></i>
                             </a>
-                            <a asp-action="Excluir" asp-route-id="@f.Id">
+                            <a asp-action="Excluir" asp-route-id="@p.Id">
                                 <i class="bi bi-trash" style="color: #f03"></i>
                             </a>
                         </div>
