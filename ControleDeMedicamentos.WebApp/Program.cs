@@ -1,5 +1,7 @@
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
+using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
+using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 
 namespace ControleDeMedicamentos.WebApp
 {
@@ -10,9 +12,11 @@ namespace ControleDeMedicamentos.WebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Injeção de dependências
-            builder.Services.AddScoped(ConfigurarContextoDados);
+            builder.Services.AddScoped((_) => new ContextoDados(true));       //Expressão Lambda
+
             builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP
             builder.Services.AddScoped<RepositorioPacienteEmArquivo>();
+            builder.Services.AddScoped<RepositorioFornecedorEmArquivo>();
             // builder.Services.AddSingleton();                               // Instancia uma vez o serviço e injeta em todas as requisições
             // builder.Services.AddTransient();                               // Instancia o serviço toda vez que for chamado em uma requisição
 
@@ -41,11 +45,6 @@ namespace ControleDeMedicamentos.WebApp
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
-        }
-
-        private static ContextoDados ConfigurarContextoDados(IServiceProvider serviceProvider)
-        {
-            return new ContextoDados(carregarDados: true);
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model VisualizarFornecedoresViewModel
+
+@{
+    ViewBag.Titulo = "Fornecedores";
+}
+
+<div class="d-flex container-fluid mb-3" style="background-color: #32376F">
+    <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
+    <a class="btn btn-outline-light ms-auto mt-2 mb-2" asp-action="Cadastrar">
+        Cadastrar
+        <i class="bi bi-plus"></i>
+    </a>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DetalhesFornecedorViewModel f in Model.Fornecedores)
+            {
+                <tr>
+                    <td>@f.Id</td>
+                    <td>@f.Nome</td>
+                    <td>@f.CNPJ</td>
+                    <td>@f.Telefone</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Editar" asp-route-id="@f.Id">
+                                <i class="bi bi-pencil" style="color: forestgreen"></i>
+                            </a>
+                            <a asp-action="Excluir" asp-route-id="@f.Id">
+                                <i class="bi bi-trash" style="color: #f03"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

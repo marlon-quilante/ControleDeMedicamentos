@@ -1,7 +1,7 @@
 ﻿using ControleDeMedicamentos.Dominio.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
-namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario
+namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente
 {
     public class RepositorioPacienteEmArquivo : RepositorioBase<Paciente>
     {
