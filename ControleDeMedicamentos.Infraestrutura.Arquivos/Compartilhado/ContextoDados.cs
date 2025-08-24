@@ -1,5 +1,6 @@
 ﻿using ControleDeMedicamentos.Dominio.ModuloFornecedor;
 using ControleDeMedicamentos.Dominio.ModuloFuncionario;
+using ControleDeMedicamentos.Dominio.ModuloMedicamento;
 using ControleDeMedicamentos.Dominio.ModuloPaciente;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -11,6 +12,7 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
         public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
         public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
         public List<Fornecedor> Fornecedores { get; set; } = new List<Fornecedor>();
+        public List<Medicamento> Medicamentos { get; set; } = new List<Medicamento>(); 
 
         private string pastaArmazenamento = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -58,6 +60,7 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
             Funcionarios = contextoArmazenado.Funcionarios;
             Pacientes = contextoArmazenado.Pacientes;
             Fornecedores = contextoArmazenado.Fornecedores;
+            Medicamentos = contextoArmazenado.Medicamentos;
         }
 
         public string CaminhoCompleto()

@@ -1,0 +1,50 @@
+﻿@model VisualizarMedicamentosViewModel
+
+@{
+    ViewBag.Titulo = "Medicamentos";
+}
+
+<div class="d-flex container-fluid mb-3" style="background-color: #32376F">
+    <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
+    <a class="btn btn-outline-light ms-auto mt-2 mb-2" asp-action="Cadastrar">
+        Cadastrar
+        <i class="bi bi-plus"></i>
+    </a>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Qtd. em Estoque</th>
+                <th>Fornecedor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DetalhesMedicamentoViewModel m in Model.Medicamentos)
+            {
+                <tr>
+                    <td>@m.Id</td>
+                    <td>@m.Nome</td>
+                    <td>@m.Descricao</td>
+                    <td>@m.QtdEstoque</td>
+                    <td>@m.Fornecedor.Nome</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Editar" asp-route-id="@m.Id">
+                                <i class="bi bi-pencil" style="color: forestgreen"></i>
+                            </a>
+                            <a asp-action="Excluir" asp-route-id="@m.Id">
+                                <i class="bi bi-trash" style="color: #f03"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
