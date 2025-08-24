@@ -72,7 +72,7 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             List<Fornecedor> fornecedoresDisponiveis = repositorioFornecedor.ObterRegistros();
 
-            EditarMedicamentoViewModel editarVM = new EditarMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.Descricao, medicamento.QtdEstoque, fornecedoresDisponiveis);
+            EditarMedicamentoViewModel editarVM = new EditarMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.Descricao, fornecedoresDisponiveis);
 
             return View(editarVM);
         }
@@ -84,21 +84,21 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             {
                 Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(editarVM.Id);
                 List<Fornecedor> fornecedoresDisponiveis = repositorioFornecedor.ObterRegistros();
-                editarVM = new EditarMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.Descricao, medicamento.QtdEstoque, fornecedoresDisponiveis);
+                editarVM = new EditarMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.Descricao, fornecedoresDisponiveis);
 
                 return View(editarVM);
             }
 
             Fornecedor fornecedorSelecionado = repositorioFornecedor.ObterRegistroPorID(editarVM.FornecedorID);
 
-            Medicamento medicamentoAtualizado = new Medicamento(editarVM.Nome, editarVM.Descricao, editarVM.QtdEstoque, fornecedorSelecionado);
+            Medicamento medicamentoAtualizado = new Medicamento(editarVM.Nome, editarVM.Descricao, fornecedorSelecionado);
             medicamentoAtualizado.Id = editarVM.Id;
 
             if (repositorioMedicamento.RegistroDuplicado(medicamentoAtualizado))
             {
                 Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(editarVM.Id);
                 List<Fornecedor> fornecedoresDisponiveis = repositorioFornecedor.ObterRegistros();
-                editarVM = new EditarMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.Descricao, medicamento.QtdEstoque, fornecedoresDisponiveis);
+                editarVM = new EditarMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.Descricao, fornecedoresDisponiveis);
 
                 return View(editarVM);
             }
@@ -122,6 +122,46 @@ namespace ControleDeMedicamentos.WebApp.Controllers
         public IActionResult ExcluirConfirmado(Guid id)
         {
             repositorioMedicamento.Excluir(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult EntradaMedicamento(Guid id)
+        {
+            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(id);
+
+            EntradaMedicamentoViewModel entradaVM = new EntradaMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.QtdEstoque);
+
+            return View(entradaVM);
+        }
+
+        [HttpPost]
+        public IActionResult EntradaMedicamento(EntradaMedicamentoViewModel entradaVM)
+        {
+            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(entradaVM.Id);
+
+            repositorioMedicamento.EntradaMedicamento(medicamento, entradaVM.QtdEntrada);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult SaidaMedicamento(Guid id)
+        {
+            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(id);
+
+            SaidaMedicamentoViewModel saidaVM = new SaidaMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.QtdEstoque);
+
+            return View(saidaVM);
+        }
+
+        [HttpPost]
+        public IActionResult SaidaMedicamento(SaidaMedicamentoViewModel saidaVM)
+        {
+            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(saidaVM.Id);
+
+            repositorioMedicamento.SaidaMedicamento(medicamento, saidaVM.QtdSaida);
 
             return RedirectToAction(nameof(Index));
         }

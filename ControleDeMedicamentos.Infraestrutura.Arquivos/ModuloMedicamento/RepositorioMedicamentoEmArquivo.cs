@@ -13,7 +13,6 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
 
             medicamento.Nome = medicamentoAtualizado.Nome;
             medicamento.Descricao = medicamentoAtualizado.Descricao;
-            medicamento.QtdEstoque = medicamentoAtualizado.QtdEstoque;
             medicamento.Fornecedor = medicamentoAtualizado.Fornecedor;
 
             contextoDados.Salvar();
@@ -30,6 +29,18 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
                 if (m.Nome == medicamento.Nome && m.Id != medicamento.Id)
                     return true;
             return false;
+        }
+
+        public void EntradaMedicamento(Medicamento medicamento, int qtdEntrada)
+        {
+            medicamento.QtdEstoque += qtdEntrada;
+            contextoDados.Salvar();
+        }
+
+        public void SaidaMedicamento(Medicamento medicamento, int qtdSaida)
+        {
+            medicamento.QtdEstoque -= qtdSaida;
+            contextoDados.Salvar();
         }
     }
 }

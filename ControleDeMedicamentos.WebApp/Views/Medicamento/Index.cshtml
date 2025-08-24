@@ -41,6 +41,12 @@
                             <a asp-action="Excluir" asp-route-id="@m.Id">
                                 <i class="bi bi-trash" style="color: #f03"></i>
                             </a>
+                            <a asp-action="EntradaMedicamento" asp-route-id="@m.Id">
+                                <i class="bi bi-arrow-up-circle-fill"></i>
+                            </a>
+                            <a asp-action="SaidaMedicamento" asp-route-id="@m.Id">
+                                <i class="bi bi-arrow-down-circle-fill"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>

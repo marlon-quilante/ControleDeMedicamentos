@@ -58,17 +58,16 @@ namespace ControleDeMedicamentos.WebApp.Models
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do medicamento deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "O nome do medicamento é um campo obrigatório")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do medicamento deve conter entre 3 e 100 caracteres")]
+        [Required(ErrorMessage = "A descrição do medicamento é um campo obrigatório")]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "A descrição do medicamento deve conter entre 5 e 255 caracteres")]
         public string Descricao { get; set; }
 
-        [MinLength(0, ErrorMessage = "A qtd. em estoque do produto deve ser maior que 0")]
+        [Range(0, int.MaxValue, ErrorMessage = "A qtd. em estoque deve ser um valor positivo")]
         public int QtdEstoque { get; set; }
 
-        public Fornecedor Fornecedor { get; set; }
-
-        [Required(ErrorMessage = "O medicamento precisa estar vinculado a um fornecedor")]
+        [Required(ErrorMessage = "O fornecedor é um campo obrigatório")]
         public Guid FornecedorID { get; set; }
+
         public List<SelectListItem> FornecedoresDisponiveis { get; set; }
 
         public CadastrarMedicamentoViewModel() 
@@ -80,7 +79,7 @@ namespace ControleDeMedicamentos.WebApp.Models
         {   
             foreach (Fornecedor f in fornecedores)
             {
-                SelectListItem fornecedorDisponivel = new SelectListItem(f.Nome.ToString(), f.Id.ToString());
+                SelectListItem fornecedorDisponivel = new SelectListItem(f.Nome, f.Id.ToString());
 
                 FornecedoresDisponiveis.Add(fornecedorDisponivel);
             }
@@ -95,30 +94,28 @@ namespace ControleDeMedicamentos.WebApp.Models
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do medicamento deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "O nome do medicamento é um campo obrigatório")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do medicamento deve conter entre 3 e 100 caracteres")]
+        [Required(ErrorMessage = "A descrição do medicamento é um campo obrigatório")]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "A descrição do medicamento deve conter entre 5 e 255 caracteres")]
         public string Descricao { get; set; }
 
-        public int QtdEstoque { get; set; }
-
-        public Fornecedor Fornecedor { get; set; }
-
-        [Required(ErrorMessage = "O medicamento precisa estar vinculado a um fornecedor")]
+        [Required(ErrorMessage="O fornecedor é um campo obrigatório")]
         public Guid FornecedorID { get; set; }
         public List<SelectListItem> FornecedoresDisponiveis { get; set; }
 
-        public EditarMedicamentoViewModel() { }
+        public EditarMedicamentoViewModel() 
+        {
+            FornecedoresDisponiveis = new List<SelectListItem>();
+        }
 
-        public EditarMedicamentoViewModel(Guid id, string nome, string descricao, int qtdEstoque, List<Fornecedor> fornecedores)
+        public EditarMedicamentoViewModel(Guid id, string nome, string descricao, List<Fornecedor> fornecedores) : this()
         {
             Id = id;
             Nome = nome;
             Descricao = descricao;
-            QtdEstoque = qtdEstoque;
 
             foreach (Fornecedor f in fornecedores)
             {
-                SelectListItem fornecedor = new SelectListItem();
+                SelectListItem fornecedor = new SelectListItem(f.Nome, f.Id.ToString());
 
                 FornecedoresDisponiveis.Add(fornecedor);
             }
@@ -136,6 +133,40 @@ namespace ControleDeMedicamentos.WebApp.Models
         {
             Id = id;
             Nome = nome;
+        }
+    }
+
+    public class EntradaMedicamentoViewModel
+    {
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public int QtdEstoque { get; set; }
+        public int QtdEntrada { get; set; }
+
+        public EntradaMedicamentoViewModel() { }
+
+        public EntradaMedicamentoViewModel(Guid id, string nome, int qtdEstoque)
+        {
+            Id = id;
+            Nome = nome;
+            QtdEstoque = qtdEstoque;
+        }
+    }
+
+    public class SaidaMedicamentoViewModel
+    {
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public int QtdEstoque { get; set; }
+        public int QtdSaida { get; set; }
+
+        public SaidaMedicamentoViewModel() { }
+
+        public SaidaMedicamentoViewModel(Guid id, string nome, int qtdEstoque)
+        {
+            Id = id;
+            Nome = nome;
+            QtdEstoque = qtdEstoque;
         }
     }
 }

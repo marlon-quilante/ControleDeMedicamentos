@@ -12,6 +12,13 @@ namespace ControleDeMedicamentos.Dominio.ModuloMedicamento
 
         public Medicamento() { }
 
+        public Medicamento(string nome, string descricao, Fornecedor fornecedor)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Fornecedor = fornecedor;
+        }
+
         public Medicamento(string nome, string descricao, int qtdEstoque, Fornecedor fornecedor)
         {
             Nome = nome;
