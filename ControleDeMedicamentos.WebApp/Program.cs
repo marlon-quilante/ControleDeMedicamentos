@@ -23,7 +23,7 @@ namespace ControleDeMedicamentos.WebApp
             // builder.Services.AddSingleton();                               // Instancia uma vez o serviço e injeta em todas as requisições
             // builder.Services.AddTransient();                               // Instancia o serviço toda vez que for chamado em uma requisição
 
-            SerilogConfig.AddSerilogConfig(builder.Services, builder.Logging, builder.Configuration);
+            builder.Services.AddSerilogConfig(builder.Logging, builder.Configuration);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
