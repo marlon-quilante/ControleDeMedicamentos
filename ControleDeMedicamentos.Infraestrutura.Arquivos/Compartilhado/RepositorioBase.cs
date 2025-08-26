@@ -37,12 +37,9 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
 
         public T ObterRegistroPorID(Guid id)
         {
-            foreach (T registro in listaRegistros)
-            {
-                if (registro.Id == id)
-                    return registro;
-            }
-            return null;
+            var registro = listaRegistros.Find(r => r.Id == id);
+
+            return registro;
         }
 
         public abstract bool RegistroDuplicado(T registro);
