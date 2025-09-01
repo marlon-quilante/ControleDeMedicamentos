@@ -1,0 +1,53 @@
+﻿@model VisualizarPrescricoesViewModel
+
+@{
+    ViewBag.Titulo = "Prescrições Médicas";
+}
+
+<div class="d-flex container-fluid mb-3" style="background-color: #32376F">
+    <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
+    <a class="btn btn-outline-light ms-auto mt-2 mb-2" asp-action="Cadastrar">
+        Cadastrar
+        <i class="bi bi-plus"></i>
+    </a>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Paciente</th>
+                <th>Data de Emissão</th>
+                <th>Data de Validade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DetalhesPrescricaoViewModel p in Model.Prescricoes)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Descricao</td>
+                    <td>@p.Paciente.Nome</td>
+                    <td>@p.DataEmissao.ToShortDateString()</td>
+                    <td>@p.DataValidade.ToShortDateString()</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Editar" asp-route-id="@p.Id">
+                                <i class="bi bi-pencil" style="color: forestgreen"></i>
+                            </a>
+                            <a asp-action="Excluir" asp-route-id="@p.Id">
+                                <i class="bi bi-trash" style="color: #f03"></i>
+                            </a>
+                            <a asp-action="GerenciarMedicamentosPrescritos" asp-route-id="@p.Id">
+                                <i class="bi bi-prescription2"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,5 +1,4 @@
 ﻿using ControleDeMedicamentos.Dominio.Compartilhado;
-using ControleDeMedicamentos.Dominio.ModuloFuncionario;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
 {
