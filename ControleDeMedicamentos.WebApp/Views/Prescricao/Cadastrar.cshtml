@@ -24,13 +24,13 @@
 
         <div class="mb-3">
             <label class="form-label" asp-for="DataValidade">Data de Validade:</label>
-            <input class="form-control" asp-for="DataValidade" id="DataValidade" type="date" />
+            <input class="form-control" asp-for="DataValidade" id="DataValidade" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="DataValidade" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label" asp-for="PacienteID">Paciente:</label>
-            <select class="form-control" name="PacienteID" asp-for="PacienteID" id="PacienteID" asp-items="@Model.PacientesDisponiveis"></select>
+            <select class="form-select" name="PacienteID" asp-for="PacienteID" id="PacienteID" asp-items="@Model.PacientesDisponiveis"></select>
             <span asp-validation-for="PacienteID" class="text-danger"></span>
         </div>
 
