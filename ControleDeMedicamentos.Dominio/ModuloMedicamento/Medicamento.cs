@@ -1,5 +1,6 @@
 ﻿using ControleDeMedicamentos.Dominio.Compartilhado;
 using ControleDeMedicamentos.Dominio.ModuloFornecedor;
+using ControleDeMedicamentos.Dominio.ModuloEntradaSaida;
 
 namespace ControleDeMedicamentos.Dominio.ModuloMedicamento
 {
@@ -7,8 +8,22 @@ namespace ControleDeMedicamentos.Dominio.ModuloMedicamento
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public int QtdEstoque { get; set; }
         public Fornecedor Fornecedor { get; set; }
+        public int QtdEstoque
+        {
+            get
+            {
+                int qtdEstoque = 0;
+
+                foreach (EntradaMedicamento reqEntrada in Entradas)
+                    if (reqEntrada.Medicamento.Id == Id)
+                        qtdEstoque += reqEntrada.QtdEntrada;
+
+                return qtdEstoque;
+            }
+        }
+
+        public List<EntradaMedicamento> Entradas { get; set; } = new List<EntradaMedicamento>();
 
         public Medicamento() { }
 
@@ -16,14 +31,6 @@ namespace ControleDeMedicamentos.Dominio.ModuloMedicamento
         {
             Nome = nome;
             Descricao = descricao;
-            Fornecedor = fornecedor;
-        }
-
-        public Medicamento(string nome, string descricao, int qtdEstoque, Fornecedor fornecedor)
-        {
-            Nome = nome;
-            Descricao = descricao;
-            QtdEstoque = qtdEstoque;
             Fornecedor = fornecedor;
         }
     }

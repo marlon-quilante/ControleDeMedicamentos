@@ -1,4 +1,5 @@
-﻿using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
+﻿using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloEntradaSaida;
+using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
@@ -15,6 +16,7 @@ namespace ControleDeMedicamentos.WebApp.DependencyInjection
             services.AddScoped<RepositorioFornecedorEmArquivo>();
             services.AddScoped<RepositorioMedicamentoEmArquivo>();
             services.AddScoped<RepositorioPrescricaoEmArquivo>();
+            services.AddScoped<RepositorioEntradaMedicamentoEmArquivo>();
         }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model VisualizarEntradasMedicamentoViewModel
+
+@{
+    ViewBag.Titulo = "Entradas e Saídas de Medicamentos";
+}
+
+<div class="d-flex container-fluid mb-3" style="background-color: #32376F">
+    <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
+    <div class="d-flex ms-auto">
+        <a class="btn btn-outline-light mt-2 mb-2 me-2" asp-action="RegistrarEntrada">
+            Entrada
+        </a>
+        <a class="btn btn-outline-light mt-2 mb-2" asp-action="RegistrarSaida">
+            Saída
+        </a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo de Registro</th>
+                <th>Medicamento</th>
+                <th>Quantidade</th>
+                <th>Registrado Por</th>
+                <th>Data do Registro</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DetalhesEntradaMedicamentoViewModel e in Model.EntradasMedicamento)
+            {
+                <tr>
+                    <td>@e.Id</td>
+                    <td>Entrada</td>
+                    <td>@e.Medicamento.Nome</td>
+                    <td>@e.QtdEntrada</td>
+                    <td>@e.Funcionario.Nome</td>
+                    <td>@e.DataEntrada.ToShortDateString()</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Editar" asp-route-id="@e.Id">
+                                <i class="bi bi-pencil" style="color: forestgreen"></i>
+                            </a>
+                            <a asp-action="Excluir" asp-route-id="@e.Id">
+                                <i class="bi bi-trash" style="color: #f03"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

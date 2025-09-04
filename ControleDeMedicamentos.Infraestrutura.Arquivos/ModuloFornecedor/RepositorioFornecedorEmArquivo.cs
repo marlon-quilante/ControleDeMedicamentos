@@ -3,7 +3,7 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor
 {
-    public class RepositorioFornecedorEmArquivo : RepositorioBase<Fornecedor>
+    public class RepositorioFornecedorEmArquivo : RepositorioBaseEmArquivo<Fornecedor>
     {
         public RepositorioFornecedorEmArquivo(ContextoDados contextoDados) : base(contextoDados) { }
 

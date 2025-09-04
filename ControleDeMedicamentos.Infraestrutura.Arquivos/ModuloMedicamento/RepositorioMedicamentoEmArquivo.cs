@@ -1,9 +1,11 @@
-﻿using ControleDeMedicamentos.Dominio.ModuloMedicamento;
+﻿using ControleDeMedicamentos.Dominio.ModuloFuncionario;
+using ControleDeMedicamentos.Dominio.ModuloMedicamento;
+using ControleDeMedicamentos.Dominio.ModuloEntradaSaida;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
 {
-    public class RepositorioMedicamentoEmArquivo : RepositorioBase<Medicamento>
+    public class RepositorioMedicamentoEmArquivo : RepositorioBaseEmArquivo<Medicamento>
     {
         public RepositorioMedicamentoEmArquivo(ContextoDados contextoDados) : base(contextoDados) { }
 
@@ -14,7 +16,6 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
             medicamento.Nome = medicamentoAtualizado.Nome;
             medicamento.Descricao = medicamentoAtualizado.Descricao;
             medicamento.Fornecedor = medicamentoAtualizado.Fornecedor;
-
             contextoDados.Salvar();
         }
 
@@ -31,15 +32,15 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
             return false;
         }
 
-        public void EntradaMedicamento(Medicamento medicamento, int qtdEntrada)
+        public void EntradaMedicamento(EntradaMedicamento entradaMedicamento)
         {
-            medicamento.QtdEstoque += qtdEntrada;
+            if (!entradaMedicamento.Medicamento.Entradas.Contains(entradaMedicamento))
+                entradaMedicamento.Medicamento.Entradas.Add(entradaMedicamento);
             contextoDados.Salvar();
         }
 
         public void SaidaMedicamento(Medicamento medicamento, int qtdSaida)
         {
-            medicamento.QtdEstoque -= qtdSaida;
             contextoDados.Salvar();
         }
     }

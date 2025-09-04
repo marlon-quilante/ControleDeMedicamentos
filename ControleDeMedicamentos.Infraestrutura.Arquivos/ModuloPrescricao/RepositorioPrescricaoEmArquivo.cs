@@ -3,7 +3,7 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao
 {
-    public class RepositorioPrescricaoEmArquivo : RepositorioBase<Prescricao>
+    public class RepositorioPrescricaoEmArquivo : RepositorioBaseEmArquivo<Prescricao>
     {
         public RepositorioPrescricaoEmArquivo(ContextoDados contextoDados) : base(contextoDados) { }
 

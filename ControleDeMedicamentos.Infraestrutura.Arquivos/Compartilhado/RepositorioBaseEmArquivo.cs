@@ -2,12 +2,12 @@
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
 {
-    public abstract class RepositorioBase<T> where T : EntidadeBase<T>
+    public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
     {
         public ContextoDados contextoDados;
         public List<T> listaRegistros = new List<T>();
 
-        public RepositorioBase(ContextoDados contextoDados)
+        public RepositorioBaseEmArquivo(ContextoDados contextoDados)
         {
             this.contextoDados = contextoDados;
             listaRegistros = ObterRegistros();

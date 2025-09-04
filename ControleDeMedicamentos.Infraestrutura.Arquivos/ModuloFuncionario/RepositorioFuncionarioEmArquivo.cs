@@ -3,7 +3,7 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario
 {
-    public class RepositorioFuncionarioEmArquivo : RepositorioBase<Funcionario>
+    public class RepositorioFuncionarioEmArquivo : RepositorioBaseEmArquivo<Funcionario>
     {
         public RepositorioFuncionarioEmArquivo(ContextoDados contextoDados) : base(contextoDados)
         {

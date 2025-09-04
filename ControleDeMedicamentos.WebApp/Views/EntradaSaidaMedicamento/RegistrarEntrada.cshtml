@@ -1,0 +1,36 @@
+﻿@model CadastrarEntradaMedicamentoViewModel
+
+@{
+    ViewBag.Titulo = "Registro de Entrada";
+}
+
+<div class="d-flex container-fluid mb-3" style="background-color: #32376F">
+    <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
+</div>
+
+<div class="col-lg-5 col-xl-4 needs-validation">
+    <form class="container-fluid mt-3" asp-action="RegistrarEntrada" method="post">
+        <div class="mb-3">
+            <label class="form-label" asp-for="MedicamentoID">Medicamento:</label>
+            <select class="form-select" name="MedicamentoID" asp-for="MedicamentoID" id="FornecedorID" asp-items="@Model.MedicamentosDisponiveis"></select>
+            <span asp-validation-for="MedicamentoID" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="FuncionarioID">Entrada Registrada Por:</label>
+            <select class="form-select" name="FuncionarioID" asp-for="FuncionarioID" id="FornecedorID" asp-items="@Model.FuncionariosDisponiveis"></select>
+            <span asp-validation-for="FuncionarioID" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="QtdEntrada">Quantidade:</label>
+            <input class="form-control" asp-for="QtdEntrada" id="QtdEntrada" type="number" placeholder="Digite a quantidade de entrada" />
+            <span asp-validation-for="QtdEntrada" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+            <button class="btn btn-success" type="submit">Salvar</button>
+        </div>
+    </form>
+</div>

@@ -1,8 +1,4 @@
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.WebApp.DependencyInjection;
 
 namespace ControleDeMedicamentos.WebApp

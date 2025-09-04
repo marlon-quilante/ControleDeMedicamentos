@@ -51,7 +51,7 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             Fornecedor fornecedorSelecionado = repositorioFornecedor.ObterRegistroPorID(cadastrarVM.FornecedorID);
 
-            Medicamento novoMedicamento = new Medicamento(cadastrarVM.Nome, cadastrarVM.Descricao, cadastrarVM.QtdEstoque, fornecedorSelecionado);
+            Medicamento novoMedicamento = new Medicamento(cadastrarVM.Nome, cadastrarVM.Descricao, fornecedorSelecionado);
 
             if (repositorioMedicamento.RegistroDuplicado(novoMedicamento))
             {
@@ -136,25 +136,25 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             return View(entradaVM);
         }
 
-        [HttpPost]
-        public IActionResult EntradaMedicamento(EntradaMedicamentoViewModel entradaVM)
-        {
-            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(entradaVM.Id);
+        //[HttpPost]
+        //public IActionResult EntradaMedicamento(EntradaMedicamentoViewModel entradaVM)
+        //{
+        //    Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(entradaVM.Id);
 
-            repositorioMedicamento.EntradaMedicamento(medicamento, entradaVM.QtdEntrada);
+        //    repositorioMedicamento.EntradaMedicamento(medicamento, entradaVM.QtdEntrada);
 
-            return RedirectToAction(nameof(Index));
-        }
+        //    return RedirectToAction(nameof(Index));
+        //}
 
-        [HttpGet]
-        public IActionResult SaidaMedicamento(Guid id)
-        {
-            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(id);
+        //[HttpGet]
+        //public IActionResult SaidaMedicamento(Guid id)
+        //{
+        //    Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(id);
 
-            SaidaMedicamentoViewModel saidaVM = new SaidaMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.QtdEstoque);
+        //    SaidaMedicamentoViewModel saidaVM = new SaidaMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.QtdEstoque);
 
-            return View(saidaVM);
-        }
+        //    return View(saidaVM);
+        //}
 
         [HttpPost]
         public IActionResult SaidaMedicamento(SaidaMedicamentoViewModel saidaVM)

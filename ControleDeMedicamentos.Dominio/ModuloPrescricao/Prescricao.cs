@@ -9,7 +9,7 @@ namespace ControleDeMedicamentos.Dominio.ModuloPrescricao
         public Paciente Paciente { get; set; }
         public DateTime DataEmissao { get; set; }
         public DateTime DataValidade { get; set; }
-        public string CrmMedico { get; set; } //Regex = @"^\d{4,7}-?[A-Z]{2}$"
+        public string CrmMedico { get; set; }
         public List<MedicamentoPrescrito> MedicamentosPrescritos { get; set; } = new List<MedicamentoPrescrito>();
 
         public Prescricao()
