@@ -39,8 +39,19 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
 
             string jsonString = JsonSerializer.Serialize(this, opcoesJson);
 
-            if (!Path.Exists(pastaArmazenamento))
+            //if (!Path.Exists(pastaArmazenamento))
+            //    Directory.CreateDirectory(pastaArmazenamento);
+
+            try
+            {
                 Directory.CreateDirectory(pastaArmazenamento);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                throw new Exception("Ocorreu um erro durante a execução do método.");
+            }
 
             File.WriteAllText(caminho, jsonString);
         }

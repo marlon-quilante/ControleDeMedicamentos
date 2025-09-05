@@ -23,6 +23,12 @@ namespace ControleDeMedicamentos.WebApp
 
             var app = builder.Build();
 
+            if (app.Environment.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+            else
+                // Middleware - Funções que executam durante cada requisição HTTP
+                app.UseExceptionHandler("/Home/Error");
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
