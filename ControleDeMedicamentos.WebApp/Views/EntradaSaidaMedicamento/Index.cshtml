@@ -26,7 +26,6 @@
                 <th>Quantidade</th>
                 <th>Registrado Por</th>
                 <th>Data do Registro</th>
-                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -39,16 +38,6 @@
                     <td>@e.QtdEntrada</td>
                     <td>@e.Funcionario.Nome</td>
                     <td>@e.DataEntrada.ToShortDateString()</td>
-                    <td>
-                        <div class="d-flex gap-2">
-                            <a asp-action="Editar" asp-route-id="@e.Id">
-                                <i class="bi bi-pencil" style="color: forestgreen"></i>
-                            </a>
-                            <a asp-action="Excluir" asp-route-id="@e.Id">
-                                <i class="bi bi-trash" style="color: #f03"></i>
-                            </a>
-                        </div>
-                    </td>
                 </tr>
             }
         </tbody>

@@ -74,7 +74,6 @@ namespace ControleDeMedicamentos.WebApp.Models
         [Required(ErrorMessage = "A descrição da prescrição é um campo obrigatório")]
         [StringLength(255, MinimumLength = 5, ErrorMessage = "A descrição do medicamento deve conter entre 5 e 255 caracteres")]
         public string Descricao { get; set; }
-        public DateTime DataEmissao { get; set; }
         public DateTime DataValidade { get; set; }
 
         [Required(ErrorMessage = "O CRM do médico é um campo obrigatório")]
@@ -84,12 +83,19 @@ namespace ControleDeMedicamentos.WebApp.Models
         [Required(ErrorMessage = "O paciente é um campo obrigatório")]
         public Guid PacienteID { get; set; }
 
-        public List<SelectListItem> PacientesDisponiveis { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> PacientesDisponiveis { get; set; }
 
-        public EditarPrescricaoViewModel() { }
-
-        public EditarPrescricaoViewModel(List<Paciente> pacientes)
+        public EditarPrescricaoViewModel()
         {
+            PacientesDisponiveis = new List<SelectListItem>();
+        }
+
+        public EditarPrescricaoViewModel(Guid id, string descricao, DateTime dataValidade, string crmMedico, List<Paciente> pacientes) : this()
+        {
+            Id = id;
+            Descricao = descricao;
+            DataValidade = dataValidade;
+            CrmMedico = crmMedico;
             PacientesDisponiveis = pacientes.Select(p => new SelectListItem(p.Nome, p.Id.ToString())).ToList();
         }
     }

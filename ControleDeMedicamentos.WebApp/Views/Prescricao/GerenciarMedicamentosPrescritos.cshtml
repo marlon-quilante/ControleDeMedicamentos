@@ -6,7 +6,6 @@
 
 <div class="d-flex container-fluid mb-3" style="background-color: #32376F">
     <h3 class="mt-2 mb-2">@ViewBag.Titulo</h3>
-    <a class="btn btn-close-white btnMenu ms-auto mt-2 mb-2" asp-action="Index">Voltar</a>
 </div>
 
 <div class="row container-fluid">
@@ -29,6 +28,10 @@
             <label asp-for="PacienteID" class="form-label">Paciente:</label>
             <input class="form-control" asp-for="Paciente.Nome" readonly disabled>
             <span asp-validation-for="PacienteID" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
         </div>
     </div>
 
@@ -56,7 +59,7 @@
             </div>
 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button type="submit" class="btn btn-primary btnTema">Adicionar</button>
             </div>
         </form>
 
@@ -69,7 +72,7 @@
             }
             else
             {
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Medicamento</th>
@@ -77,12 +80,11 @@
                             <th>Período</th>
                             <th>Quantidade</th>
                             <th>Excluir</th>
-                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
                         @foreach (DetalhesMedicamentoPrescritoViewModel mp in Model.MedicamentosPrescritos)
                         {
+                        <tbody>
                             <tr>
                                 <td valign="middle">@mp.Medicamento.Nome</td>
                                 <td valign="middle">@mp.Dosagem</td>
@@ -94,14 +96,14 @@
                                           asp-route-idPrescricao="@Model.Id"
                                           asp-route-idMedicamentoPrescrito="@mp.Id">
                                         <button class="btn btn-danger d-flex justify-content-center align-items-center rounded-circle"
-                                                style="min-height: 40px">
+                                                style="height: 35px; width: 35px;" title="Remover">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
                                 </td>
                             </tr>
+                        </tbody>
                         }
-                    </tbody>
                 </table>
             }
         </div>

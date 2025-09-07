@@ -15,6 +15,8 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao
             prescricao.Paciente = prescricaoAtualizada.Paciente;
             prescricao.DataValidade = prescricaoAtualizada.DataValidade;
             prescricao.CrmMedico = prescricaoAtualizada.CrmMedico;
+
+            contextoDados.Salvar();
         }
 
         public override List<Prescricao> ObterRegistros()

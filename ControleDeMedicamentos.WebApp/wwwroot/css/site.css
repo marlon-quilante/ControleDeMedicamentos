@@ -20,3 +20,29 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btnMenu {
+    height: 40px;
+    align-content: center;
+}
+
+.btnTema {
+    background-color: #32376F;
+    border-color: #32376F;
+}
+
+.backgroundTema {
+    color: #32376F;
+}
+
+.borderMenu {
+    color: #32376F;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
