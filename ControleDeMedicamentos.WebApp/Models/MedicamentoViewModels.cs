@@ -135,38 +135,4 @@ namespace ControleDeMedicamentos.WebApp.Models
             Nome = nome;
         }
     }
-
-    public class EntradaMedicamentoViewModel
-    {
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public int QtdEstoque { get; set; }
-        public int QtdEntrada { get; set; }
-
-        public EntradaMedicamentoViewModel() { }
-
-        public EntradaMedicamentoViewModel(Guid id, string nome, int qtdEstoque)
-        {
-            Id = id;
-            Nome = nome;
-            QtdEstoque = qtdEstoque;
-        }
-    }
-
-    public class SaidaMedicamentoViewModel
-    {
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public int QtdEstoque { get; set; }
-        public int QtdSaida { get; set; }
-
-        public SaidaMedicamentoViewModel() { }
-
-        public SaidaMedicamentoViewModel(Guid id, string nome, int qtdEstoque)
-        {
-            Id = id;
-            Nome = nome;
-            QtdEstoque = qtdEstoque;
-        }
-    }
 }

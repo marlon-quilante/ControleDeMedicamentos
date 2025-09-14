@@ -1,7 +1,7 @@
 ﻿@model PrescricoesSaidaMedicamentoViewModel
 
 @{
-    ViewBag.Titulo = "Registro de Saída - Prescrições";
+    ViewBag.Titulo = "Registro de Saída de Medicamento - Prescrições";
 }
 
 <div class="d-flex container-fluid mb-3" style="background-color: #32376F">
@@ -9,7 +9,7 @@
 </div>
 
 <div class="d-flex justify-content-center">
-    <form class="col-lg-5 col-xl-4">
+    <form class="col-sm-8 col-lg-6">
         <label class="form-label">Funcionário:</label>
         <input class="form-control mb-2" name="NomeFuncionario" type="text" value="@Model.NomeFuncionario" disabled />
 
@@ -22,35 +22,42 @@
 </div>
 
 <div class="d-flex justify-content-center">
-    <div class="col-lg-5 col-xl-4">
-        <table class="table table-dark table-striped">
-            <thead>
-                <tr>
-                    <th>Prescrição</th>
-                    <th>Data de Validade</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (DetalhesPrescricaoSaidaMedicamentoViewModel p in Model.Prescricoes)
-                {
+    <div class="col-sm-8 col-lg-6">
+        @if (!Model.Prescricoes.Any())
+        {
+            <h4 class="fw-semibold mt-3">Ainda não há nenhuma prescrição relacionada ao paciente...</h4>
+        }
+        else
+        {
+            <table class="table table-dark table-striped">
+                <thead>
                     <tr>
-                        <td class="align-middle">@p.Descricao</td>
-                        <td class="align-middle">@p.DataValidade.ToShortDateString()</td>
-                        <td class="align-middle">
-                            <form asp-action="RegistrarSaidaPrescricoes"
-                                  asp-route-idPrescricao="@p.Id"
-                                  asp-route-idFuncionario="@Model.FuncionarioID"
-                                  method="post">
-                                <button class="btn btn-secondary btnTema">
-                                    Selecionar
-                                </button>
-                            </form>
-                        </td>
+                        <th>Prescrição</th>
+                        <th>Data de Validade</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (DetalhesPrescricaoSaidaMedicamentoViewModel p in Model.Prescricoes)
+                    {
+                        <tr>
+                            <td class="align-middle">@p.Descricao</td>
+                            <td class="align-middle">@p.DataValidade.ToShortDateString()</td>
+                            <td class="d-flex justify-content-end">
+                                <form asp-action="RegistrarSaidaPrescricoes"
+                                      asp-route-idPrescricao="@p.Id"
+                                      asp-route-idFuncionario="@Model.FuncionarioID"
+                                      method="post">
+                                    <button class="btn btn-secondary btnTema">
+                                        Selecionar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
         <div class="d-flex justify-content-end">
             <a class="btn btn-secondary me-2" asp-action="Index">Cancelar</a>
         </div>

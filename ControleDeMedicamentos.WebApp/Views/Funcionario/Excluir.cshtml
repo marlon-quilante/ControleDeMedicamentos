@@ -11,7 +11,7 @@
 <div class="d-flex justify-content-center">
     <form asp-action="ExcluirConfirmado" asp-route-id="@Model.Id" method="post">
         <h3 class="mb-3">Deseja realmente excluir o funcionário <strong>@Model.Nome</strong>?</h3>
-        <div class="d-flex gap-2">
+        <div class="d-flex justify-content-end gap-2">
             <a class="btn btn-secondary" asp-action="Index">Voltar</a>
             <button class="btn btn-danger" type="submit">Excluir</button>
         </div>

@@ -48,12 +48,15 @@ namespace ControleDeMedicamentos.WebApp.Models
 
     public class CadastrarFornecedorViewModel 
     {
+        [Required(ErrorMessage = "O nome do fornecedor é um campo obrigatório")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do fornecedor deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
 
+        [Required(ErrorMessage = "O telefone do fornecedor é um campo obrigatório")]
         [RegularExpression(@"^\(\d{2}\)\s{1}\d{5}\-\d{4}$", ErrorMessage = "O telefone deve estar no formato (99) 99999-9999")]
         public string Telefone { get; set; }
 
+        [Required(ErrorMessage = "O CNPJ do fornecedor é um campo obrigatório")]
         [RegularExpression(@"^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$", ErrorMessage = "O CNPJ deve estar no formato 99.999.999\\9999-99")]
         public string CNPJ { get; set; }
 
@@ -71,12 +74,15 @@ namespace ControleDeMedicamentos.WebApp.Models
     {
         public Guid Id { get; set; }
 
+        [Required(ErrorMessage = "O nome do fornecedor é um campo obrigatório")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do fornecedor deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
 
+        [Required(ErrorMessage = "O telefone do fornecedor é um campo obrigatório")]
         [RegularExpression(@"^\(\d{2}\)\s{1}\d{5}\-\d{4}$", ErrorMessage = "O telefone deve estar no formato (99) 99999-9999")]
         public string Telefone { get; set; }
 
+        [Required(ErrorMessage = "O CNPJ do fornecedor é um campo obrigatório")]
         [RegularExpression(@"^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$", ErrorMessage = "O CNPJ deve estar no formato 99.999.999\\9999-99")]
         public string CNPJ { get; set; }
 

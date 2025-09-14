@@ -13,25 +13,25 @@
         <form class="container-fluid mt-3" asp-action="Editar" method="post">
             <div class="mb-3">
                 <label class="form-label" asp-for="Nome">Nome:</label>
-                <input class="form-control" asp-for="Nome" id="Nome" type="text" value="@Model.Nome" />
+                <input class="form-control" asp-for="Nome" id="Nome" type="text" value="@Model.Nome" placeholder="Nome do paciente" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" asp-for="Telefone">Telefone:</label>
-                <input class="form-control" asp-for="Telefone" id="Telefone" type="text" value="@Model.Telefone" />
+                <input class="form-control" asp-for="Telefone" id="Telefone" type="text" value="@Model.Telefone" placeholder="(99) 99999-9999" />
                 <span asp-validation-for="Telefone" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" asp-for="CPF">CPF:</label>
-                <input class="form-control" asp-for="CPF" id="CPF" type="text" value="@Model.CPF" />
+                <input class="form-control" asp-for="CPF" id="CPF" type="text" value="@Model.CPF" placeholder="999.999.999-99" />
                 <span asp-validation-for="CPF" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" asp-for="NumCartaoSUS">Nº do Cartão SUS:</label>
-                <input class="form-control" asp-for="NumCartaoSUS" id="NumCartaoSUS" type="number" value="@Model.NumCartaoSUS" />
+                <input class="form-control" asp-for="NumCartaoSUS" id="NumCartaoSUS" type="number" value="@Model.NumCartaoSUS" placeholder="999999999999999" />
                 <span asp-validation-for="NumCartaoSUS" class="text-danger"></span>
             </div>
 

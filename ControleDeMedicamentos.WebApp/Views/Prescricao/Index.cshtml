@@ -16,7 +16,6 @@
     <table class="table table-dark table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Descrição</th>
                 <th>Paciente</th>
                 <th>Data de Emissão</th>
@@ -28,7 +27,6 @@
             @foreach (DetalhesPrescricaoViewModel p in Model.Prescricoes)
             {
                 <tr>
-                    <td>@p.Id</td>
                     <td>@p.Descricao</td>
                     <td>@p.Paciente.Nome</td>
                     <td>@p.DataEmissao.ToShortDateString()</td>

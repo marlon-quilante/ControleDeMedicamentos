@@ -125,45 +125,5 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        [HttpGet]
-        public IActionResult EntradaMedicamento(Guid id)
-        {
-            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(id);
-
-            EntradaMedicamentoViewModel entradaVM = new EntradaMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.QtdEstoque);
-
-            return View(entradaVM);
-        }
-
-        //[HttpPost]
-        //public IActionResult EntradaMedicamento(EntradaMedicamentoViewModel entradaVM)
-        //{
-        //    Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(entradaVM.Id);
-
-        //    repositorioMedicamento.EntradaMedicamento(medicamento, entradaVM.QtdEntrada);
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //[HttpGet]
-        //public IActionResult SaidaMedicamento(Guid id)
-        //{
-        //    Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(id);
-
-        //    SaidaMedicamentoViewModel saidaVM = new SaidaMedicamentoViewModel(medicamento.Id, medicamento.Nome, medicamento.QtdEstoque);
-
-        //    return View(saidaVM);
-        //}
-
-        [HttpPost]
-        public IActionResult SaidaMedicamento(SaidaMedicamentoViewModel saidaVM)
-        {
-            Medicamento medicamento = repositorioMedicamento.ObterRegistroPorID(saidaVM.Id);
-
-            repositorioMedicamento.SaidaMedicamento(medicamento, saidaVM.QtdSaida);
-
-            return RedirectToAction(nameof(Index));
-        }
     }
 }

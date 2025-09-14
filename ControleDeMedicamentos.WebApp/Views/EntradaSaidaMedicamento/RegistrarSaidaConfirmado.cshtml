@@ -1,7 +1,7 @@
 ﻿@model RegistrarSaidaMedicamentoViewModel
 
 @{
-    ViewBag.Titulo = "Registro de Saída - Revisão dos Dados";
+    ViewBag.Titulo = "Registro de Saída de Medicamento - Revisão";
 }
 
 <div class="d-flex container-fluid mb-3" style="background-color: #32376F">
@@ -9,7 +9,7 @@
 </div>
 
 <div class="d-flex justify-content-center">
-    <form class="col-lg-5 col-xl-4">
+    <form class="col-sm-8 col-lg-6">
         <label class="form-label">Funcionário:</label>
         <input class="form-control mb-2" asp-for="NomeFuncionario" type="text" value="@Model.NomeFuncionario" disabled />
 
@@ -26,38 +26,48 @@
 
 <div>
     <div class="d-flex justify-content-center">
-        <div class="col-lg-5 col-xl-4">
-            <table class="table table-dark table-striped">
-                <thead>
-                    <tr>
-                        <th>Medicamento</th>
-                        <th>Dosagem</th>
-                        <th>Período</th>
-                        <th>Quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (DetalhesMedicamentoPrescritoSaidaMedicamentoViewModel p in Model.MedicamentosPrescritos)
-                    {
-                        <tr>
-                            <td class="align-middle">@p.NomeMedicamento</td>
-                            <td class="align-middle">@p.Dosagem</td>
-                            <td class="align-middle">@p.Periodo</td>
-                            <td class="align-middle">@p.Quantidade</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <form asp-action="RegistrarSaidaConfirmado"
-                  asp-route-idPrescricao="@Model.PrescricaoID"
-                  asp-route-idFuncionario="@Model.FuncionarioID"
-                  method="post">
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-secondary me-2" asp-action="Index">Cancelar</a>
-                    <button class="btn btn-success">Salvar</button>
+        <div class="col-sm-8 col-lg-6">
+            @if (!Model.MedicamentosPrescritos.Any())
+            {
+                <h4 class="fw-semibold mt-3">Ainda não há nenhum medicamento relacionado à prescrição...</h4>
+                <div class="d-flex justify-content-end gap-2">
+                    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
                 </div>
-            </form>
+            }
+            else
+            {
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>Medicamento</th>
+                            <th>Dosagem</th>
+                            <th>Período</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DetalhesMedicamentoPrescritoSaidaMedicamentoViewModel p in Model.MedicamentosPrescritos)
+                        {
+                            <tr>
+                                <td class="align-middle">@p.NomeMedicamento</td>
+                                <td class="align-middle">@p.Dosagem</td>
+                                <td class="align-middle">@p.Periodo</td>
+                                <td class="align-middle">@p.Quantidade</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <form asp-action="RegistrarSaidaConfirmado"
+                      asp-route-idPrescricao="@Model.PrescricaoID"
+                      asp-route-idFuncionario="@Model.FuncionarioID"
+                      method="post">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                        <button class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
+            }
         </div>
     </div>
 </div>

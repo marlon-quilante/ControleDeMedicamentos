@@ -16,7 +16,6 @@
     <table class="table table-dark table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
@@ -27,7 +26,6 @@
             @foreach (DetalhesFuncionarioViewModel f in Model.Funcionarios)
             {
                 <tr>
-                    <td>@f.Id</td>
                     <td>@f.Nome</td>
                     <td>@f.CPF</td>
                     <td>@f.Telefone</td>
