@@ -1,4 +1,4 @@
-﻿@model VisualizarEntradasMedicamentoViewModel
+﻿@model VisualizarEntradasSaidasMedicamentoViewModel
 
 @{
     ViewBag.Titulo = "Entradas e Saídas de Medicamentos";
@@ -17,29 +17,60 @@
 </div>
 
 <div class="container-fluid">
-    <table class="table table-dark table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tipo de Registro</th>
-                <th>Medicamento</th>
-                <th>Quantidade</th>
-                <th>Registrado Por</th>
-                <th>Data do Registro</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (DetalhesEntradaMedicamentoViewModel e in Model.EntradasMedicamento)
-            {
-                <tr>
-                    <td>@e.Id</td>
-                    <td>Entrada</td>
-                    <td>@e.Medicamento.Nome</td>
-                    <td>@e.QtdEntrada</td>
-                    <td>@e.Funcionario.Nome</td>
-                    <td>@e.DataEntrada.ToShortDateString()</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-lg-5 col-xl-6">
+            <h1>Entradas</h1>
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Quantidade</th>
+                        <th>Registrado Por</th>
+                        <th>Data da Entrada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DetalhesEntradaMedicamentoViewModel e in Model.EntradasMedicamento)
+                    {
+                        <tr>
+                            <td>@e.Medicamento.Nome</td>
+                            <td>@e.QtdEntrada</td>
+                            <td>@e.Funcionario.Nome</td>
+                            <td>@e.DataEntrada.ToString("G")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-5 col-xl-6">
+            <h1>Saídas</h1>
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Quantidade</th>
+                        <th>Paciente</th>
+                        <th>Registrado Por</th>
+                        <th>Data da Saída</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DetalhesSaidaMedicamentoViewModel s in Model.SaidasMedicamento)
+                    {
+                        foreach (DetalhesMedicamentoPrescritoSaidaMedicamentoViewModel m in s.MedicamentosPrescritos)
+                        {
+                            <tr>
+                                <td>@m.NomeMedicamento</td>
+                                <td>@m.Quantidade</td>
+                                <td>@s.NomePaciente</td>
+                                <td>@s.NomeFuncionario</td>
+                                <td>@s.DataSaida.ToString("G")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

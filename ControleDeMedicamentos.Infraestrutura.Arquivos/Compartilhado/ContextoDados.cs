@@ -17,6 +17,7 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
         public List<Medicamento> Medicamentos { get; set; } = new List<Medicamento>();
         public List<Prescricao> Prescricoes { get; set; } = new List<Prescricao>();
         public List<EntradaMedicamento> EntradasMedicamento { get; set; } = new List<EntradaMedicamento>();
+        public List<SaidaMedicamento> SaidasMedicamento { get; set; } = new List<SaidaMedicamento>();
 
         private string pastaArmazenamento = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -78,6 +79,7 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado
             Medicamentos = contextoArmazenado.Medicamentos;
             Prescricoes = contextoArmazenado.Prescricoes;
             EntradasMedicamento = contextoArmazenado.EntradasMedicamento;
+            SaidasMedicamento = contextoArmazenado.SaidasMedicamento;
         }
 
         public string CaminhoCompleto()

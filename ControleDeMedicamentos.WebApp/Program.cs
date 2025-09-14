@@ -12,7 +12,7 @@ namespace ControleDeMedicamentos.WebApp
             // Injeção de dependências
             builder.Services.AddScoped((_) => new ContextoDados(true));       //Expressão Lambda
 
-            builder.Services.AddCamadaInfraestrutura();
+            builder.Services.AddCamadaInfraestrutura(builder.Configuration);
             // builder.Services.AddSingleton();                               // Instancia uma vez o serviço e injeta em todas as requisições
             // builder.Services.AddTransient();                               // Instancia o serviço toda vez que for chamado em uma requisição
 

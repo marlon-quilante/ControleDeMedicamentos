@@ -26,6 +26,15 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente
             return contextoDados.Pacientes;
         }
 
+        public Paciente ObterPacientePorCPF(string cpf)
+        {
+            foreach (Paciente p in listaRegistros)
+                if (p.CPF == cpf)
+                    return p;
+
+            return null;
+        }
+
         public override bool RegistroDuplicado(Paciente paciente)
         {
             foreach (Paciente p in listaRegistros)

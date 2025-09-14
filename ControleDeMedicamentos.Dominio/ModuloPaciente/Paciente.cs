@@ -8,6 +8,8 @@ namespace ControleDeMedicamentos.Dominio.ModuloPaciente
         public string Telefone { get; set; }
         public string NumCartaoSUS { get; set; }
         public string CPF { get; set; }
+        
+        public Paciente() { }
 
         public Paciente(string nome, string telefone, string numCartaoSUS, string cpf)
         {

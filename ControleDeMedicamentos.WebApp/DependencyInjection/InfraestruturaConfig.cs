@@ -4,13 +4,25 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPaciente;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace ControleDeMedicamentos.WebApp.DependencyInjection
 {
     public static class InfraestruturaConfig
     {
-        public static void AddCamadaInfraestrutura(this IServiceCollection services)
+        public static void AddCamadaInfraestrutura(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IDbConnection>(_ => 
+            {
+                var connectionString = configuration["SQL_CONNECTION_STRING"];
+
+                return new SqlConnection(connectionString); 
+            });
+
+            services.AddScoped<RepositorioPacienteEmSql>();
+
             services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP
             services.AddScoped<RepositorioPacienteEmArquivo>();
             services.AddScoped<RepositorioFornecedorEmArquivo>();

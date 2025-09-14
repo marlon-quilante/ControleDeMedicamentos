@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Infr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.WebApp", "ControleDeMedicamentos.WebApp\ControleDeMedicamentos.WebApp.csproj", "{699466CC-385D-4625-877D-5F6ED5B50545}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ControleDeMedicamentos.Util.SqlProject", "ControleDeMedicamentos.Util.SqlProject\ControleDeMedicamentos.Util.SqlProject.sqlproj", "{7445489B-603E-4F53-B408-45EFA154E5B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilidade", "Utilidade", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Infraestrutura.SqlServer", "ControleDeMedicamentos.Infraestrutura.SqlServer\ControleDeMedicamentos.Infraestrutura.SqlServer.csproj", "{CF86BF94-AC40-462A-A34D-F33A4B6556D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +33,22 @@ Global
 		{699466CC-385D-4625-877D-5F6ED5B50545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{699466CC-385D-4625-877D-5F6ED5B50545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{699466CC-385D-4625-877D-5F6ED5B50545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7445489B-603E-4F53-B408-45EFA154E5B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7445489B-603E-4F53-B408-45EFA154E5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7445489B-603E-4F53-B408-45EFA154E5B8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7445489B-603E-4F53-B408-45EFA154E5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7445489B-603E-4F53-B408-45EFA154E5B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7445489B-603E-4F53-B408-45EFA154E5B8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CF86BF94-AC40-462A-A34D-F33A4B6556D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF86BF94-AC40-462A-A34D-F33A4B6556D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF86BF94-AC40-462A-A34D-F33A4B6556D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF86BF94-AC40-462A-A34D-F33A4B6556D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7445489B-603E-4F53-B408-45EFA154E5B8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFE63F35-8E6F-4A3B-9C01-39DF2F9F195E}

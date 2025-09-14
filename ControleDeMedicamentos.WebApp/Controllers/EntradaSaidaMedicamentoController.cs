@@ -1,10 +1,14 @@
 ﻿using ControleDeMedicamentos.Dominio.ModuloEntradaSaida;
 using ControleDeMedicamentos.Dominio.ModuloFuncionario;
 using ControleDeMedicamentos.Dominio.ModuloMedicamento;
+using ControleDeMedicamentos.Dominio.ModuloPaciente;
+using ControleDeMedicamentos.Dominio.ModuloPrescricao;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloEntradaSaida;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
+using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
+using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +20,9 @@ namespace ControleDeMedicamentos.WebApp.Controllers
         private readonly RepositorioMedicamentoEmArquivo repositorioMedicamento;
         private readonly RepositorioFuncionarioEmArquivo repositorioFuncionario;
         private readonly RepositorioEntradaMedicamentoEmArquivo repositorioEntradaMedicamento;
+        private readonly RepositorioSaidaMedicamentoEmArquivo repositorioSaidaMedicamento;
+        private readonly RepositorioPacienteEmArquivo repositorioPaciente;
+        private readonly RepositorioPrescricaoEmArquivo repositorioPrescricao;
 
         public EntradaSaidaMedicamentoController()
         {
@@ -23,14 +30,18 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contextoDados);
             repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contextoDados);
             repositorioEntradaMedicamento = new RepositorioEntradaMedicamentoEmArquivo(contextoDados);
+            repositorioSaidaMedicamento = new RepositorioSaidaMedicamentoEmArquivo(contextoDados);
+            repositorioPaciente = new RepositorioPacienteEmArquivo(contextoDados);
+            repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contextoDados);
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             List<EntradaMedicamento> entradasMedicamento = repositorioEntradaMedicamento.ObterRegistros();
+            List<SaidaMedicamento> saidasMedicamento = repositorioSaidaMedicamento.ObterRegistros();
 
-            VisualizarEntradasMedicamentoViewModel visualizarVM = new VisualizarEntradasMedicamentoViewModel(entradasMedicamento);
+            VisualizarEntradasSaidasMedicamentoViewModel visualizarVM = new VisualizarEntradasSaidasMedicamentoViewModel(entradasMedicamento, saidasMedicamento);
 
             return View(visualizarVM);
         }
@@ -41,20 +52,20 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             List<Medicamento> medicamentosDisponiveis = repositorioMedicamento.ObterRegistros();
             List<Funcionario> funcionariosDisponiveis = repositorioFuncionario.ObterRegistros(); 
 
-            CadastrarEntradaMedicamentoViewModel cadastrarVM = new CadastrarEntradaMedicamentoViewModel(medicamentosDisponiveis, funcionariosDisponiveis);
+            RegistrarEntradaMedicamentoViewModel cadastrarVM = new RegistrarEntradaMedicamentoViewModel(medicamentosDisponiveis, funcionariosDisponiveis);
 
             return View(cadastrarVM);
         }
 
         [HttpPost]
-        public IActionResult RegistrarEntrada(CadastrarEntradaMedicamentoViewModel cadastrarVM)
+        public IActionResult RegistrarEntrada(RegistrarEntradaMedicamentoViewModel cadastrarVM)
         {
             if (!ModelState.IsValid)
             {
                 List<Medicamento> medicamentosDisponiveis = repositorioMedicamento.ObterRegistros();
                 List<Funcionario> funcionariosDisponiveis = repositorioFuncionario.ObterRegistros();
 
-                cadastrarVM = new CadastrarEntradaMedicamentoViewModel(medicamentosDisponiveis, funcionariosDisponiveis);
+                cadastrarVM = new RegistrarEntradaMedicamentoViewModel(medicamentosDisponiveis, funcionariosDisponiveis);
 
                 return View(cadastrarVM);
             }
@@ -65,6 +76,74 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             EntradaMedicamento entradaMedicamento = new EntradaMedicamento(medicamento, funcionario, cadastrarVM.QtdEntrada);
 
             repositorioEntradaMedicamento.Cadastrar(entradaMedicamento);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult RegistrarSaida()
+        {
+            List<Funcionario> funcionarios = repositorioFuncionario.ObterRegistros();
+
+            DadosIniciaisSaidaMedicamentoViewModel dadosIniciaisSaidaVM = new DadosIniciaisSaidaMedicamentoViewModel(funcionarios);
+
+            return View(dadosIniciaisSaidaVM);
+        }
+
+        [HttpPost]
+        public IActionResult RegistrarSaida(DadosIniciaisSaidaMedicamentoViewModel dadosIniciaisSaidaVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                List<Funcionario> funcionarios = repositorioFuncionario.ObterRegistros();
+                dadosIniciaisSaidaVM = new DadosIniciaisSaidaMedicamentoViewModel(funcionarios);
+
+                return View(dadosIniciaisSaidaVM);
+            }
+
+            Funcionario funcionarioSelecionado = repositorioFuncionario.ObterRegistroPorID(dadosIniciaisSaidaVM.FuncionarioID);
+            Paciente pacienteSelecionado = repositorioPaciente.ObterPacientePorCPF(dadosIniciaisSaidaVM.CPFPaciente);
+            
+            List<Prescricao> prescricoesPaciente = repositorioPrescricao.ObterPrescricoesPorPaciente(pacienteSelecionado);
+
+            PrescricoesSaidaMedicamentoViewModel prescricaoSaidaVM = new PrescricoesSaidaMedicamentoViewModel
+                (funcionarioSelecionado.Nome, 
+                funcionarioSelecionado.Id, 
+                pacienteSelecionado.Nome, 
+                pacienteSelecionado.Id,
+                pacienteSelecionado.Telefone,
+                prescricoesPaciente);
+
+            return View(nameof(RegistrarSaidaPrescricoes), prescricaoSaidaVM);
+        }
+
+        [HttpPost]
+        public IActionResult RegistrarSaidaPrescricoes(Guid idPrescricao, Guid idFuncionario)
+        {
+            Prescricao prescricaoSelecionada = repositorioPrescricao.ObterRegistroPorID(idPrescricao);
+            Funcionario funcionarioSelecionado = repositorioFuncionario.ObterRegistroPorID(idFuncionario);
+
+            RegistrarSaidaMedicamentoViewModel registrarSaidaVM = new RegistrarSaidaMedicamentoViewModel
+                (funcionarioSelecionado.Nome,
+                funcionarioSelecionado.Id,
+                prescricaoSelecionada.Paciente.Nome,
+                prescricaoSelecionada.Paciente.Id,
+                prescricaoSelecionada.Descricao,
+                prescricaoSelecionada.Id,
+                prescricaoSelecionada.MedicamentosPrescritos);
+
+            return View(nameof(RegistrarSaidaConfirmado), registrarSaidaVM);
+        }
+
+        [HttpPost]
+        public IActionResult RegistrarSaidaConfirmado(Guid idPrescricao, Guid idFuncionario)
+        {
+            Prescricao prescricaoSelecionada = repositorioPrescricao.ObterRegistroPorID(idPrescricao);
+            Funcionario funcionarioSelecionado = repositorioFuncionario.ObterRegistroPorID(idFuncionario);
+
+            SaidaMedicamento saidaMedicamento = new SaidaMedicamento(prescricaoSelecionada, funcionarioSelecionado);
+
+            repositorioSaidaMedicamento.Cadastrar(saidaMedicamento);
 
             return RedirectToAction(nameof(Index));
         }

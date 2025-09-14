@@ -2,6 +2,7 @@
 using ControleDeMedicamentos.Dominio.ModuloMedicamento;
 using ControleDeMedicamentos.Dominio.ModuloEntradaSaida;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
+using ControleDeMedicamentos.Dominio.ModuloPrescricao;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
 {
@@ -36,6 +37,14 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
         {
             if (!entradaMedicamento.Medicamento.Entradas.Contains(entradaMedicamento))
                 entradaMedicamento.Medicamento.Entradas.Add(entradaMedicamento);
+            contextoDados.Salvar();
+        }
+
+        public void SaidaMedicamento(SaidaMedicamento saidaMedicamento)
+        {
+            foreach (MedicamentoPrescrito mp in saidaMedicamento.Prescricao.MedicamentosPrescritos)
+                if (!mp.Medicamento.Saidas.Contains(saidaMedicamento))
+                    mp.Medicamento.Saidas.Add(saidaMedicamento);
             contextoDados.Salvar();
         }
 
