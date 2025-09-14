@@ -10,7 +10,7 @@ namespace ControleDeMedicamentos.WebApp.Models
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public int QtdEstoque { get; set; }
-        public Fornecedor Fornecedor { get; set; }
+        public string NomeFornecedor { get; set; }
         public List<DetalhesMedicamentoViewModel> Medicamentos { get; set; }
 
         public VisualizarMedicamentosViewModel(List<Medicamento> medicamentos)
@@ -19,18 +19,18 @@ namespace ControleDeMedicamentos.WebApp.Models
 
             foreach (Medicamento m in medicamentos)
             {
-                DetalhesMedicamentoViewModel detalhesVM = new DetalhesMedicamentoViewModel(m.Id, m.Nome, m.Descricao, m.QtdEstoque, m.Fornecedor);
+                DetalhesMedicamentoViewModel detalhesVM = new DetalhesMedicamentoViewModel(m.Id, m.Nome, m.Descricao, m.QtdEstoque, m.Fornecedor.Nome);
 
                 Medicamentos.Add(detalhesVM);
             }
         }
 
-        public VisualizarMedicamentosViewModel(string nome, string descricao, int qtdEstoque, Fornecedor fornecedor)
+        public VisualizarMedicamentosViewModel(string nome, string descricao, int qtdEstoque, string nomeFornecedor)
         {
             Nome = nome;
             Descricao = descricao;
             QtdEstoque = qtdEstoque;
-            Fornecedor = fornecedor;
+            NomeFornecedor = nomeFornecedor;
         }
     }
 
@@ -40,15 +40,15 @@ namespace ControleDeMedicamentos.WebApp.Models
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public int QtdEstoque { get; set; }
-        public Fornecedor Fornecedor { get; set; }
+        public string NomeFornecedor { get; set; }
 
-        public DetalhesMedicamentoViewModel(Guid id, string nome, string descricao, int qtdEstoque, Fornecedor fornecedor)
+        public DetalhesMedicamentoViewModel(Guid id, string nome, string descricao, int qtdEstoque, string nomeFornecedor)
         {
             Id = id;
             Nome = nome;
             Descricao = descricao;
             QtdEstoque = qtdEstoque;
-            Fornecedor = fornecedor;
+            NomeFornecedor = nomeFornecedor;
         }
     }
 
@@ -62,6 +62,7 @@ namespace ControleDeMedicamentos.WebApp.Models
         [StringLength(255, MinimumLength = 5, ErrorMessage = "A descrição do medicamento deve conter entre 5 e 255 caracteres")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage = "A qtd. em estoque é um campo obrigatório")]
         [Range(0, int.MaxValue, ErrorMessage = "A qtd. em estoque deve ser um valor positivo")]
         public int QtdEstoque { get; set; }
 

@@ -33,9 +33,9 @@
                     @foreach (DetalhesEntradaMedicamentoViewModel e in Model.EntradasMedicamento)
                     {
                         <tr>
-                            <td>@e.Medicamento.Nome</td>
+                            <td>@e.NomeMedicamento</td>
                             <td>@e.QtdEntrada</td>
-                            <td>@e.Funcionario.Nome</td>
+                            <td>@e.NomeFuncionario</td>
                             <td>@e.DataEntrada.ToString("G")</td>
                         </tr>
                     }

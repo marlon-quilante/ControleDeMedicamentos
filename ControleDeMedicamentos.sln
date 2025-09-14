@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.WebA
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ControleDeMedicamentos.Util.SqlProject", "ControleDeMedicamentos.Util.SqlProject\ControleDeMedicamentos.Util.SqlProject.sqlproj", "{7445489B-603E-4F53-B408-45EFA154E5B8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilidade", "Utilidade", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Infraestrutura.SqlServer", "ControleDeMedicamentos.Infraestrutura.SqlServer\ControleDeMedicamentos.Infraestrutura.SqlServer.csproj", "{CF86BF94-AC40-462A-A34D-F33A4B6556D8}"
 EndProject
 Global
@@ -46,9 +44,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{7445489B-603E-4F53-B408-45EFA154E5B8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFE63F35-8E6F-4A3B-9C01-39DF2F9F195E}

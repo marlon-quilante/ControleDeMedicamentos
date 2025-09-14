@@ -15,7 +15,7 @@ namespace ControleDeMedicamentos.WebApp.Models
         public VisualizarEntradasSaidasMedicamentoViewModel(List<EntradaMedicamento> entradasMedicamento, List<SaidaMedicamento> saidasMedicamento)
         {
             if (entradasMedicamento is not null)
-                EntradasMedicamento = entradasMedicamento.Select(x => new DetalhesEntradaMedicamentoViewModel(x.Id, x.Medicamento, x.Funcionario, x.QtdEntrada, x.DataEntrada)).ToList();
+                EntradasMedicamento = entradasMedicamento.Select(x => new DetalhesEntradaMedicamentoViewModel(x.Id, x.Medicamento.Nome, x.Funcionario.Nome, x.QtdEntrada, x.DataEntrada)).ToList();
 
             if (saidasMedicamento != null)
                 SaidasMedicamento = saidasMedicamento.Select(x => new DetalhesSaidaMedicamentoViewModel(x.Id, x.Funcionario.Nome, x.Prescricao.Paciente.Nome, x.Prescricao.Descricao, x.DataSaida, x.Prescricao.MedicamentosPrescritos)).ToList();
@@ -25,16 +25,16 @@ namespace ControleDeMedicamentos.WebApp.Models
     public class DetalhesEntradaMedicamentoViewModel
     {
         public Guid Id { get; set; }
-        public Medicamento Medicamento { get; set; }
-        public Funcionario Funcionario { get; set; }
+        public string NomeMedicamento { get; set; }
+        public string NomeFuncionario { get; set; }
         public int QtdEntrada { get; set; }
         public DateTime DataEntrada { get; set; }
 
-        public DetalhesEntradaMedicamentoViewModel(Guid id, Medicamento medicamento, Funcionario funcionario, int qtdEntrada, DateTime dataEntrada)
+        public DetalhesEntradaMedicamentoViewModel(Guid id, string nomeMedicamento, string nomeFuncionario, int qtdEntrada, DateTime dataEntrada)
         {
             Id = id;
-            Medicamento = medicamento;
-            Funcionario = funcionario;
+            NomeMedicamento = nomeMedicamento;
+            NomeFuncionario = nomeFuncionario;
             QtdEntrada = qtdEntrada;
             DataEntrada = dataEntrada;
         }
