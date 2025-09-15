@@ -4,6 +4,8 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloFornecedor;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPaciente;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -21,7 +23,9 @@ namespace ControleDeMedicamentos.WebApp.DependencyInjection
                 return new SqlConnection(connectionString); 
             });
 
+            services.AddScoped<RepositorioFuncionarioEmSql>();
             services.AddScoped<RepositorioPacienteEmSql>();
+            services.AddScoped<RepositorioFornecedorEmSql>();
 
             services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP
             services.AddScoped<RepositorioPacienteEmArquivo>();

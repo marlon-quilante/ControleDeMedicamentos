@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[TBFuncionario]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Nome] NVARCHAR(100) NULL, 
+    [Telefone] NVARCHAR(50) NULL, 
+    [CPF] NVARCHAR(20) NULL
+)

@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[TBFornecedor]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)

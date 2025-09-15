@@ -12,6 +12,7 @@ namespace ControleDeMedicamentos.Dominio.ModuloMedicamento
         public Fornecedor Fornecedor { get; set; }
         public List<EntradaMedicamento> Entradas { get; set; } = new List<EntradaMedicamento>();
         public List<SaidaMedicamento> Saidas { get; set; } = new List<SaidaMedicamento>();
+
         public int QtdEstoque
         {
             get

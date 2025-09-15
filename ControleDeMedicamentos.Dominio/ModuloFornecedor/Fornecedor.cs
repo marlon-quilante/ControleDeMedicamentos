@@ -8,6 +8,8 @@ namespace ControleDeMedicamentos.Dominio.ModuloFornecedor
         public string Telefone { get; set; }
         public string CNPJ { get; set; }
 
+        public Fornecedor() { }
+
         public Fornecedor(string nome, string telefone, string cnpj)
         {
             Nome = nome;

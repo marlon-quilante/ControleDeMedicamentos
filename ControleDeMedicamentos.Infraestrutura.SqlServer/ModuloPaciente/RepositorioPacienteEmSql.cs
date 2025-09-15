@@ -13,17 +13,17 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPaciente
             this.connection = connection;
         }
 
-        public void Cadastrar(Paciente novoRegistro)
+        public void Cadastrar(Paciente novoPaciente)
         {
             const string sql = @"INSERT INTO TBPaciente (Id, Nome, Telefone, NumCartaoSUS, CPF) VALUES (@Id, @Nome, @Telefone, @NumCartaoSus, @CPF)";
 
             connection.Execute(sql, new
             {
                 Id = Guid.NewGuid(),
-                Nome = novoRegistro.Nome,
-                Telefone = novoRegistro.Telefone,
-                NumCartaoSUS = novoRegistro.NumCartaoSUS,
-                CPF = novoRegistro.CPF
+                Nome = novoPaciente.Nome,
+                Telefone = novoPaciente.Telefone,
+                NumCartaoSUS = novoPaciente.NumCartaoSUS,
+                CPF = novoPaciente.CPF
             });
         }
 

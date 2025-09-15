@@ -47,10 +47,5 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento
                     mp.Medicamento.Saidas.Add(saidaMedicamento);
             contextoDados.Salvar();
         }
-
-        public void SaidaMedicamento(Medicamento medicamento, int qtdSaida)
-        {
-            contextoDados.Salvar();
-        }
     }
 }

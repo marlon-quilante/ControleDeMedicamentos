@@ -8,6 +8,8 @@ namespace ControleDeMedicamentos.Dominio.ModuloFuncionario
         public string Telefone { get; set; }
         public string CPF { get; set; }
 
+        public Funcionario() { }
+
         public Funcionario(string nome, string telefone, string cpf)
         {
             Nome = nome;
