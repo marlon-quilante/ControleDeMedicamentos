@@ -1,14 +1,103 @@
-﻿using System.Data;
+﻿using ControleDeMedicamentos.Dominio.ModuloFornecedor;
+using ControleDeMedicamentos.Dominio.ModuloMedicamento;
+using Dapper;
+using System.Data;
 
 namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento
 {
-    public class RepositorioMedicamentoEmSql
+    public class RepositorioMedicamentoEmSql(IDbConnection connection)
     {
-        private readonly IDbConnection connection;
-
-        public RepositorioMedicamentoEmSql(IDbConnection connection)
+        public void Cadastrar(Medicamento novoMedicamento)
         {
-            this.connection = connection;
+            const string sql = @"INSERT INTO TBMedicamento (Id, Nome, Descricao, FornecedorID) VALUES (@Id, @Nome, @Descricao, @FornecedorID)";
+
+            connection.Execute(sql, new
+            {
+                novoMedicamento.Id,
+                novoMedicamento.Nome,
+                novoMedicamento.Descricao,
+                FornecedorID = novoMedicamento.Fornecedor.Id
+            });
+        }
+
+        public void Editar(Guid idParaAtualizar, Medicamento medicamentoAtualizado)
+        {
+            const string sql = @"UPDATE TBMedicamento SET Nome = @Nome, Descricao = @Descricao, FornecedorID = @FornecedorID WHERE Id = @Id";
+
+            connection.Execute(sql, new
+            {
+                Id = idParaAtualizar,
+                medicamentoAtualizado.Nome,
+                medicamentoAtualizado.Descricao,
+                FornecedorID = medicamentoAtualizado.Fornecedor.Id
+            });
+        }
+
+        public void Excluir(Guid id)
+        {
+            const string sql = @"DELETE FROM TBMedicamento WHERE Id = @Id";
+
+            connection.Execute(sql, new
+            {
+                Id = id
+            });
+        }
+
+        public List<Medicamento> ObterRegistros()
+        {
+            const string sql = @"SELECT * FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id ORDER BY m.Nome";
+
+            var medicamentos = connection.Query<Medicamento, Fornecedor, Medicamento>(
+                sql, 
+                map: (med, forn) =>
+                {
+                    med.Fornecedor = forn;
+                    return med;
+                },
+                splitOn: "FornecedorID"
+            ).ToList();
+
+            return medicamentos;
+        }
+
+        public Medicamento? ObterRegistroPorID(Guid id)
+        {
+            const string sql = @"SELECT * FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id WHERE m.Id = @Id";
+
+            var medicamento = connection.Query<Medicamento, Fornecedor, Medicamento>(
+                sql,
+                map: (med, forn) =>
+                {
+                    med.Fornecedor = forn;
+                    return med;
+                },
+                param: new { Id = id },
+                splitOn: "FornecedorID"
+            ).FirstOrDefault();
+
+            return medicamento;
+        }
+
+        public bool RegistroDuplicado(Medicamento medicamento)
+        {
+            const string sql = @"SELECT * FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id";
+
+            var medicamentos = connection.Query<Medicamento, Fornecedor, Medicamento>(
+                sql,
+                map: (med, forn) =>
+                {
+                    med.Fornecedor = forn;
+                    return med;
+                },
+                param: new { medicamento.Id },
+                splitOn: "FornecedorID"
+            ).ToList();
+
+            foreach (Medicamento m in medicamentos)
+                if (m.Nome == medicamento.Nome && m.Id != medicamento.Id)
+                    return true;
+
+            return false;
         }
     }
 }
