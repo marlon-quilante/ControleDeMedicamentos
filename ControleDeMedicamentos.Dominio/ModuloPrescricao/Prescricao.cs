@@ -12,9 +12,7 @@ namespace ControleDeMedicamentos.Dominio.ModuloPrescricao
         public string CrmMedico { get; set; }
         public List<MedicamentoPrescrito> MedicamentosPrescritos { get; set; } = new List<MedicamentoPrescrito>();
 
-        public Prescricao()
-        {
-        }
+        public Prescricao() { }
 
         public Prescricao(string descricao, Paciente paciente, DateTime dataValidade, string crmMedico)
         {

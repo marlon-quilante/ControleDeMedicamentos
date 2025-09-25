@@ -5,6 +5,9 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPaciente;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPrescricao;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,14 +15,12 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 {
     public class PrescricaoController : Controller
     {
-        private readonly ContextoDados contextoDados;
-        private readonly RepositorioPrescricaoEmArquivo repositorioPrescricao;
-        private readonly RepositorioMedicamentoEmArquivo repositorioMedicamento;
-        private readonly RepositorioPacienteEmArquivo repositorioPaciente;
+        private readonly RepositorioPrescricaoEmSql repositorioPrescricao;
+        private readonly RepositorioMedicamentoEmSql repositorioMedicamento;
+        private readonly RepositorioPacienteEmSql repositorioPaciente;
 
-        public PrescricaoController(ContextoDados contextoDados, RepositorioPrescricaoEmArquivo repositorioPrescricao, RepositorioMedicamentoEmArquivo repositorioMedicamento, RepositorioPacienteEmArquivo repositorioPaciente)
+        public PrescricaoController(RepositorioPrescricaoEmSql repositorioPrescricao, RepositorioMedicamentoEmSql repositorioMedicamento, RepositorioPacienteEmSql repositorioPaciente)
         {
-            this.contextoDados = contextoDados;
             this.repositorioPrescricao = repositorioPrescricao;
             this.repositorioMedicamento = repositorioMedicamento;
             this.repositorioPaciente = repositorioPaciente;
@@ -59,6 +60,8 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             var novaPrescricao = new Prescricao(cadastrarVM.Descricao, pacienteSelecionado, cadastrarVM.DataValidade, cadastrarVM.CrmMedico);
 
+            novaPrescricao.Id = Guid.NewGuid();
+
             repositorioPrescricao.Cadastrar(novaPrescricao);
 
             return RedirectToAction(nameof(Index));
@@ -89,11 +92,16 @@ namespace ControleDeMedicamentos.WebApp.Controllers
                 return View(editarVM);
             }
 
+            Prescricao prescricaoAtual = repositorioPrescricao.ObterRegistroPorID(editarVM.Id);
+
             Paciente pacienteSelecionado = repositorioPaciente.ObterRegistroPorID(editarVM.PacienteID);
 
-            Prescricao prescricao = new Prescricao(editarVM.Descricao, pacienteSelecionado, editarVM.DataValidade, editarVM.CrmMedico);
+            Prescricao prescricaoAtualizada = new Prescricao(editarVM.Descricao, pacienteSelecionado, editarVM.DataValidade, editarVM.CrmMedico);
 
-            repositorioPrescricao.Editar(editarVM.Id, prescricao);
+            prescricaoAtualizada.MedicamentosPrescritos = prescricaoAtual.MedicamentosPrescritos;
+            prescricaoAtualizada.Id = prescricaoAtual.Id;
+
+            repositorioPrescricao.Editar(editarVM.Id, prescricaoAtualizada);
 
             return RedirectToAction(nameof(Index));
         }
@@ -135,9 +143,9 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             var medicamentoSelecionado = repositorioMedicamento.ObterRegistroPorID(adicionarMedicamentoVM.MedicamentoID);
 
-            prescricaoSelecionada.AdicionarMedicamentoPrescrito(new MedicamentoPrescrito(medicamentoSelecionado, adicionarMedicamentoVM.DosagemMedicamento, adicionarMedicamentoVM.PeriodoMedicamento, adicionarMedicamentoVM.QuantidadeMedicamento));
+            prescricaoSelecionada.AdicionarMedicamentoPrescrito(new MedicamentoPrescrito(medicamentoSelecionado, prescricaoSelecionada, adicionarMedicamentoVM.DosagemMedicamento, adicionarMedicamentoVM.PeriodoMedicamento, adicionarMedicamentoVM.QuantidadeMedicamento));
 
-            contextoDados.Salvar();
+            repositorioPrescricao.Editar(idPrescricao, prescricaoSelecionada);
 
             return RedirectToAction(nameof(GerenciarMedicamentosPrescritos), new { id = idPrescricao });
         }
@@ -149,7 +157,7 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             prescricaoSelecionada.RemoverMedicamentoPrescrito(idMedicamentoPrescrito);
 
-            contextoDados.Salvar();
+            repositorioPrescricao.Editar(idPrescricao, prescricaoSelecionada);
 
             return RedirectToAction(nameof(GerenciarMedicamentosPrescritos), new { id = idPrescricao });
         }

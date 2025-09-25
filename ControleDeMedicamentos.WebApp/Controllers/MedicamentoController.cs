@@ -53,6 +53,8 @@ namespace ControleDeMedicamentos.WebApp.Controllers
 
             Medicamento novoMedicamento = new Medicamento(cadastrarVM.Nome, cadastrarVM.Descricao, fornecedorSelecionado);
 
+            novoMedicamento.Id = Guid.NewGuid();
+
             if (repositorioMedicamento.RegistroDuplicado(novoMedicamento))
             {
                 List<Fornecedor> fornecedoresDisponiveis = repositorioFornecedor.ObterRegistros();

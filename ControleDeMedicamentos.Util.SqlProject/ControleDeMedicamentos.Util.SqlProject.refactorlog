@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="e5bd5a9b-73cb-4f76-9d1c-d8861fbad634" ChangeDateTime="09/23/2025 22:18:51">
+    <Property Name="ElementName" Value="[dbo].[TBPrescricao].[Descrição]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TBPrescricao]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Descricao" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cba33737-4dc0-4195-bd69-5698125888d8" ChangeDateTime="09/23/2025 22:18:53">
+    <Property Name="ElementName" Value="[dbo].[TBPrescricao].[Data]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TBPrescricao]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DataEmissao" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2e1005cf-a9e8-45cc-8de7-f4047cf3bdd0" ChangeDateTime="09/23/2025 22:21:30">
+    <Property Name="ElementName" Value="[dbo].[TBMedicamentoPrescrito].[MedicamentoDI]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TBMedicamentoPrescrito]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MedicamentoID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3cc8707c-d9a3-4bfa-96d0-9910901bab1f" ChangeDateTime="09/23/2025 22:21:49">
+    <Property Name="ElementName" Value="[dbo].[TBMedicamentoPrescrito].[MedicamentoID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TBMedicamentoPrescrito]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PrescricaoID" />
+  </Operation>
+</Operations>
