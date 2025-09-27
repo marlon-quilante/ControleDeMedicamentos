@@ -9,27 +9,31 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloEntradaSaida;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloFuncionario;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ControleDeMedicamentos.WebApp.Controllers
 {
     public class EntradaSaidaMedicamentoController : Controller
     {
         private readonly ContextoDados contextoDados;
-        private readonly RepositorioMedicamentoEmArquivo repositorioMedicamento;
-        private readonly RepositorioFuncionarioEmArquivo repositorioFuncionario;
-        private readonly RepositorioEntradaMedicamentoEmArquivo repositorioEntradaMedicamento;
+        private readonly RepositorioMedicamentoEmSql repositorioMedicamento;
+        private readonly RepositorioFuncionarioEmSql repositorioFuncionario;
+        private readonly RepositorioEntradaMedicamentoEmSql repositorioEntradaMedicamento;
         private readonly RepositorioSaidaMedicamentoEmArquivo repositorioSaidaMedicamento;
         private readonly RepositorioPacienteEmArquivo repositorioPaciente;
         private readonly RepositorioPrescricaoEmArquivo repositorioPrescricao;
 
-        public EntradaSaidaMedicamentoController()
+        public EntradaSaidaMedicamentoController(RepositorioEntradaMedicamentoEmSql repositorioEntradaMedicamento, RepositorioMedicamentoEmSql repositorioMedicamento, RepositorioFuncionarioEmSql repositorioFuncionario)
         {
             contextoDados = new ContextoDados(true);
-            repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contextoDados);
-            repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contextoDados);
-            repositorioEntradaMedicamento = new RepositorioEntradaMedicamentoEmArquivo(contextoDados);
+            this.repositorioMedicamento = repositorioMedicamento;
+            this.repositorioFuncionario = repositorioFuncionario;
+            this.repositorioEntradaMedicamento = repositorioEntradaMedicamento;
             repositorioSaidaMedicamento = new RepositorioSaidaMedicamentoEmArquivo(contextoDados);
             repositorioPaciente = new RepositorioPacienteEmArquivo(contextoDados);
             repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contextoDados);

@@ -1,4 +1,5 @@
-﻿using ControleDeMedicamentos.Dominio.ModuloFornecedor;
+﻿using ControleDeMedicamentos.Dominio.ModuloEntradaSaida;
+using ControleDeMedicamentos.Dominio.ModuloFornecedor;
 using ControleDeMedicamentos.Dominio.ModuloMedicamento;
 using Dapper;
 using System.Data;
@@ -9,14 +10,15 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento
     {
         public void Cadastrar(Medicamento novoMedicamento)
         {
-            const string sql = @"INSERT INTO TBMedicamento (Id, Nome, Descricao, FornecedorID) VALUES (@Id, @Nome, @Descricao, @FornecedorID)";
+            const string sql = @"INSERT INTO TBMedicamento (Id, Nome, Descricao, FornecedorID, QtdEstoque) VALUES (@Id, @Nome, @Descricao, @FornecedorID, @QtdEstoque)";
 
             connection.Execute(sql, new
             {
                 novoMedicamento.Id,
                 novoMedicamento.Nome,
                 novoMedicamento.Descricao,
-                FornecedorID = novoMedicamento.Fornecedor.Id
+                FornecedorID = novoMedicamento.Fornecedor.Id,
+                novoMedicamento.QtdEstoque
             });
         }
 
@@ -45,7 +47,8 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento
 
         public List<Medicamento> ObterRegistros()
         {
-            const string sql = @"SELECT * FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id ORDER BY m.Nome";
+            const string sql = @"SELECT m.Id, m.Nome, m.Descricao, m.QtdEstoque, m.FornecedorID 
+                                        FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id ORDER BY m.Nome ASC";
 
             var medicamentos = connection.Query<Medicamento, Fornecedor, Medicamento>(
                 sql, 

@@ -64,6 +64,8 @@
     <Build Include="TBMedicamento.sql" />
     <Build Include="TBPrescricao.sql" />
     <Build Include="TBMedicamentoPrescrito.sql" />
+    <Build Include="TBEntradaMedicamento.sql" />
+    <Build Include="TBSaidaMedicamento.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ControleDeMedicamentos.Util.SqlProject.refactorlog" />

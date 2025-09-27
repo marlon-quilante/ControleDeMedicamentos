@@ -12,25 +12,7 @@ namespace ControleDeMedicamentos.Dominio.ModuloMedicamento
         public Fornecedor Fornecedor { get; set; }
         public List<EntradaMedicamento> Entradas { get; set; } = new List<EntradaMedicamento>();
         public List<SaidaMedicamento> Saidas { get; set; } = new List<SaidaMedicamento>();
-
-        public int QtdEstoque
-        {
-            get
-            {
-                int qtdEstoque = 0;
-
-                foreach (EntradaMedicamento e in Entradas)
-                    if (e.Medicamento.Id == Id)
-                        qtdEstoque += e.QtdEntrada;
-
-                foreach (SaidaMedicamento s in Saidas)
-                    foreach (MedicamentoPrescrito mp in s.Prescricao.MedicamentosPrescritos)
-                        if (mp.Medicamento.Id == Id)
-                            qtdEstoque -= mp.Quantidade;
-
-                return qtdEstoque;
-            }
-        }
+        public int QtdEstoque { get; set; }
 
         public Medicamento() { }
 

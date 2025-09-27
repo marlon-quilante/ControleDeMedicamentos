@@ -4,6 +4,7 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloEntradaSaida;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento;
@@ -30,6 +31,7 @@ namespace ControleDeMedicamentos.WebApp.DependencyInjection
             services.AddScoped<RepositorioFornecedorEmSql>();
             services.AddScoped<RepositorioMedicamentoEmSql>();
             services.AddScoped<RepositorioPrescricaoEmSql>();
+            services.AddScoped<RepositorioEntradaMedicamentoEmSql>();
 
             services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP
             services.AddScoped<RepositorioPacienteEmArquivo>();

@@ -11,7 +11,8 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPrescricao
     {
         public void Cadastrar(Prescricao novaPrescricao)
         {
-            const string sqlInsertPrescricao = @"INSERT INTO TBPrescricao (Id, Descricao, DataEmissao, DataValidade, CrmMedico, PacienteID) VALUES (@Id, @Descricao, @DataEmissao, @DataValidade, @CrmMedico, @PacienteID)";
+            const string sqlInsertPrescricao = @"INSERT INTO TBPrescricao (Id, Descricao, DataEmissao, DataValidade, CrmMedico, PacienteID) 
+                                                        VALUES (@Id, @Descricao, @DataEmissao, @DataValidade, @CrmMedico, @PacienteID)";
 
             connection.Open();
 
