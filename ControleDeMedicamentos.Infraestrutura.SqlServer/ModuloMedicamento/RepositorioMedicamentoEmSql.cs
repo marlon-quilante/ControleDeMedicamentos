@@ -47,8 +47,9 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento
 
         public List<Medicamento> ObterRegistros()
         {
-            const string sql = @"SELECT m.Id, m.Nome, m.Descricao, m.QtdEstoque, m.FornecedorID 
-                                        FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id ORDER BY m.Nome ASC";
+            const string sql = @"SELECT m.Id, m.Nome, m.Descricao, m.QtdEstoque, m.FornecedorID, f.Nome
+                                        FROM TBMedicamento m INNER JOIN TBFornecedor f ON m.FornecedorID = f.Id 
+                                        ORDER BY m.Nome ASC";
 
             var medicamentos = connection.Query<Medicamento, Fornecedor, Medicamento>(
                 sql, 
