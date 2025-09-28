@@ -25,7 +25,7 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloEntradaSaida
                 });
             }
 
-            EntradaNoEstoque(novaEntrada);
+            AumentarEstoqueMedicamento(novaEntrada);
         }
 
         public List<EntradaMedicamento> ObterRegistros()
@@ -44,13 +44,13 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloEntradaSaida
                 em.Funcionario = f;
                 em.Medicamento = m;
 
-                return (em);
+                return em;
             }, splitOn: "EntradaMedicamentoID, MedicamentoID, FuncionarioID").ToList();
 
             return entradasMedicamento;
         }
 
-        public void EntradaNoEstoque(EntradaMedicamento novaEntrada)
+        public void AumentarEstoqueMedicamento(EntradaMedicamento novaEntrada)
         {
             const string sqlUpdateEstoqueMedicamento = @"UPDATE TBMedicamento SET QtdEstoque = QtdEstoque + @QtdEntrada WHERE Id = @Id";
 

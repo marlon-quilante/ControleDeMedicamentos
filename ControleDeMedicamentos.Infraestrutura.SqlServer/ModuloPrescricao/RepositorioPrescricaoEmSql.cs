@@ -124,5 +124,15 @@ namespace ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPrescricao
         {
             return ObterRegistros().FirstOrDefault(x => x.Id.Equals(id));
         }
+
+        public List<Prescricao> ObterPrescricoesPorPaciente(Paciente pacienteSelecionado)
+        {
+            const string sqlSelectPorCPF = @"SELECT * FROM TBPrescricao WHERE PacienteID = @PacienteID";
+
+            return connection.Query<Prescricao>(sqlSelectPorCPF, new
+            {
+                PacienteID = pacienteSelecionado.Id
+            }).ToList();
+        }
     }
 }

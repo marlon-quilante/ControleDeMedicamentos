@@ -32,6 +32,7 @@ namespace ControleDeMedicamentos.WebApp.DependencyInjection
             services.AddScoped<RepositorioMedicamentoEmSql>();
             services.AddScoped<RepositorioPrescricaoEmSql>();
             services.AddScoped<RepositorioEntradaMedicamentoEmSql>();
+            services.AddScoped<RepositorioSaidaMedicamentoEmSql>();
 
             services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP
             services.AddScoped<RepositorioPacienteEmArquivo>();

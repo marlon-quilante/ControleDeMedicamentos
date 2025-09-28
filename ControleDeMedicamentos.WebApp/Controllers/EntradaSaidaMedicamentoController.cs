@@ -12,6 +12,8 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloEntradaSaida;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloMedicamento;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPaciente;
+using ControleDeMedicamentos.Infraestrutura.SqlServer.ModuloPrescricao;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -24,19 +26,24 @@ namespace ControleDeMedicamentos.WebApp.Controllers
         private readonly RepositorioMedicamentoEmSql repositorioMedicamento;
         private readonly RepositorioFuncionarioEmSql repositorioFuncionario;
         private readonly RepositorioEntradaMedicamentoEmSql repositorioEntradaMedicamento;
-        private readonly RepositorioSaidaMedicamentoEmArquivo repositorioSaidaMedicamento;
-        private readonly RepositorioPacienteEmArquivo repositorioPaciente;
-        private readonly RepositorioPrescricaoEmArquivo repositorioPrescricao;
+        private readonly RepositorioSaidaMedicamentoEmSql repositorioSaidaMedicamento;
+        private readonly RepositorioPacienteEmSql repositorioPaciente;
+        private readonly RepositorioPrescricaoEmSql repositorioPrescricao;
 
-        public EntradaSaidaMedicamentoController(RepositorioEntradaMedicamentoEmSql repositorioEntradaMedicamento, RepositorioMedicamentoEmSql repositorioMedicamento, RepositorioFuncionarioEmSql repositorioFuncionario)
+        public EntradaSaidaMedicamentoController(
+            RepositorioEntradaMedicamentoEmSql repositorioEntradaMedicamento, 
+            RepositorioMedicamentoEmSql repositorioMedicamento, 
+            RepositorioFuncionarioEmSql repositorioFuncionario,
+            RepositorioSaidaMedicamentoEmSql repositorioSaidaMedicamento,
+            RepositorioPacienteEmSql repositorioPaciente,
+            RepositorioPrescricaoEmSql repositorioPrescricao)
         {
-            contextoDados = new ContextoDados(true);
             this.repositorioMedicamento = repositorioMedicamento;
             this.repositorioFuncionario = repositorioFuncionario;
             this.repositorioEntradaMedicamento = repositorioEntradaMedicamento;
-            repositorioSaidaMedicamento = new RepositorioSaidaMedicamentoEmArquivo(contextoDados);
-            repositorioPaciente = new RepositorioPacienteEmArquivo(contextoDados);
-            repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contextoDados);
+            this.repositorioSaidaMedicamento = repositorioSaidaMedicamento;
+            this.repositorioPaciente = repositorioPaciente;
+            this.repositorioPrescricao = repositorioPrescricao;
         }
 
         [HttpGet]
@@ -106,7 +113,7 @@ namespace ControleDeMedicamentos.WebApp.Controllers
             }
 
             Funcionario funcionarioSelecionado = repositorioFuncionario.ObterRegistroPorID(dadosIniciaisSaidaVM.FuncionarioID);
-            Paciente pacienteSelecionado = repositorioPaciente.ObterPacientePorCPF(dadosIniciaisSaidaVM.CPFPaciente);
+            Paciente pacienteSelecionado = repositorioPaciente.ObterRegistroPorCPF(dadosIniciaisSaidaVM.CPFPaciente);
             
             List<Prescricao> prescricoesPaciente = repositorioPrescricao.ObterPrescricoesPorPaciente(pacienteSelecionado);
 
